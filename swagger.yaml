@@ -1,0 +1,395 @@
+swagger: '2.0'
+info:
+  title: Corporate number system API v4
+  description: Corporate number system API v4
+  termsOfService: 'https://www.houjin-bangou.nta.go.jp/webapi/riyokiyaku.html'
+  contact:
+    name: Contact Information
+    url: 'https://www.houjin-bangou.nta.go.jp/webapi/toiawase/'
+  version: 1.0.0
+host: api.houjin-bangou.nta.go.jp
+basePath: /4
+schemes:
+  - https
+produces:
+  - application/xml
+consumes:
+  - application/json
+securityDefinitions:
+  id:
+    name: Application ID
+    description: 国税庁から取得したApplication ID
+    type: apiKey
+    in: query
+paths:
+  /name:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - Corporation
+      operationId: get-users-userId
+      description: get corporations
+      parameters:
+        - type: string
+          in: query
+          name: name
+          description: corporation name
+          required: true
+        - type: number
+          in: query
+          name: type
+          description: response format type
+          required: true
+        - type: number
+          in: query
+          name: mode
+          description: search mode
+        - type: number
+          in: query
+          name: target
+          description: search target JIS level
+        - type: number
+          in: query
+          name: address
+          description: 'prefecture code or, prefecture & city code'
+        - type: number
+          in: query
+          name: kind
+          description: corporation type
+        - type: number
+          in: query
+          name: change
+          description: change history enable or disable
+        - type: number
+          in: query
+          name: close
+          description: close corporation enable or disable
+        - type: string
+          in: query
+          name: from
+          description: corporation number start date
+        - type: string
+          in: query
+          name: to
+          description: corporation number end date
+        - type: number
+          in: query
+          name: divide
+          description: division number
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Corporation'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/Error400'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error403'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/Error404'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/Error500'
+definitions:
+  Corporation:
+    type: object
+    properties:
+      sequenceNumber:
+        type: integer
+        description: 一連番号
+        example: 11111111
+      corporateNumber:
+        type: integer
+        example: 9999999999999
+        description: 法人番号
+      process:
+        type: string
+        enum:
+          - '01'
+          - '11'
+          - '12'
+          - '13'
+          - '21'
+          - '22'
+          - '71'
+          - '72'
+          - '81'
+          - '99'
+        example: '01'
+      correct:
+        type: integer
+        enum:
+          - 0
+          - 1
+        example: 0
+      updateDate:
+        type: string
+        description: 更新年月日
+        format: date
+        example: '2018-04-02'
+      changeDate:
+        type: string
+        format: date
+        description: 変更年月日
+        example: '2015-10-05'
+      name:
+        type: string
+        description: 商号又は名称
+        example: 株式会社foo
+      nameImageId:
+        type: integer
+        description: 商号又は名称イメージID
+        example: 99999999
+      kind:
+        type: integer
+        description: 法人種別
+        enum:
+          - 101
+          - 201
+          - 301
+          - 302
+          - 303
+          - 304
+          - 305
+          - 399
+          - 401
+          - 499
+        example: 101
+      prefectureName:
+        type: string
+        description: 国内所在地（都道府県）
+        enum:
+          - 北海道
+          - 青森県
+          - 岩手県
+          - 宮城県
+          - 秋田県
+          - 山形県
+          - 福島県
+          - 茨城県
+          - 栃木県
+          - 群馬県
+          - 埼玉県
+          - 千葉県
+          - 東京都
+          - 神奈川県
+          - 新潟県
+          - 富山県
+          - 石川県
+          - 福井県
+          - 山梨県
+          - 長野県
+          - 岐阜県
+          - 静岡県
+          - 愛知県
+          - 三重県
+          - 滋賀県
+          - 京都府
+          - 大阪府
+          - 兵庫県
+          - 奈良県
+          - 和歌山県
+          - 鳥取県
+          - 島根県
+          - 岡山県
+          - 広島県
+          - 山口県
+          - 徳島県
+          - 香川県
+          - 愛媛県
+          - 高知県
+          - 福岡県
+          - 佐賀県
+          - 長崎県
+          - 熊本県
+          - 大分県
+          - 宮崎県
+          - 鹿児島県
+          - 沖縄県
+        example: 北海道
+      cityName:
+        type: string
+        description: 国内所在地（市区町村）
+        example: 旭川市
+      streetNumber:
+        type: string
+        description: 国内所在地（丁目番地等）
+        example: 大字下白銀町７
+      addressImageId:
+        type: integer
+        description: 国内所在地イメージID
+        example: 87308
+      prefectureCode:
+        type: integer
+        description: 都道府県コード
+        example: 1
+        minimum: 1
+        maximum: 47
+      cityCode:
+        type: integer
+        description: 市区町村コード
+        example: 111
+      postCode:
+        type: integer
+        description: 郵便番号
+        example: 7777777
+      addressOutside:
+        type: string
+        description: 国外所在地
+        example: '47 W 13th St, New York, NY 10011, USA'
+      addressOutsideImageId:
+        type: integer
+        description: 国外所在地イメージID
+        example: 1
+      closeDate:
+        type: string
+        description: 登記記録の閉鎖等年月日
+        format: date
+        example: '2017-03-31'
+      closeCause:
+        type: string
+        description: 登記記録の閉鎖等の事由
+        enum:
+          - '01'
+          - '11'
+          - '21'
+          - '31'
+        example: '01'
+      successorCorporateNumber:
+        type: integer
+        description: 承継先法人番号
+        example: 1
+      changeCause:
+        type: string
+        description: 変更事由の詳細
+        example: 不本意ながら吸収合併されたため。
+      assignmentDate:
+        type: string
+        description: 法人番号指定年月日
+        format: date
+        example: '2010-01-01'
+      latest:
+        type: integer
+        description: 最新履歴
+        enum:
+          - 0
+          - 1
+        example: 0
+      enName:
+        type: string
+        description: 商号又は名称（英語表記）
+        example: foo company
+      enPrefectureName:
+        type: string
+        description: 国内所在地（都道府県）(英語表記）
+        example: Hokkaido
+      enCityName:
+        type: string
+        description: 国内所在地（市区町村丁目番地等）（英語表記）
+        example: '1-1-1,Uchimaru, Hachinohe shi'
+      enAddressOutside:
+        type: string
+        description: 国外所在地（英語表記）
+        example: '47 W 13th St, New York, NY 10011, USA'
+      furigana:
+        type: string
+        description: フリガナ
+        example: ワッツマンリサーチ
+      hihyoji:
+        type: integer
+        description: 検索対象除外
+        enum:
+          - 0
+          - 1
+        example: 0
+  User:
+    title: User
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+    required:
+      - firstName
+      - lastName
+  Error400:
+    description: error codes when http response 400 is returned
+    type: object
+    properties:
+      code:
+        type: string
+        enum:
+          - '010'
+          - '011'
+          - '012'
+          - '013'
+          - '020'
+          - '021'
+          - '022'
+          - '030'
+          - '031'
+          - '040'
+          - '041'
+          - '042'
+          - '043'
+          - '050'
+          - '051'
+          - '052'
+          - '060'
+          - '061'
+          - '062'
+          - '063'
+          - '070'
+          - '071'
+          - '072'
+          - '073'
+          - '080'
+          - '081'
+          - '082'
+          - '090'
+          - '100'
+          - '101'
+          - '102'
+          - '103'
+          - '110'
+          - '111'
+          - '112'
+          - '120'
+          - '121'
+          - '122'
+          - '130'
+          - '131'
+          - '132'
+          - '140'
+          - '141'
+          - '142'
+          - '150'
+          - '151'
+          - '152'
+          - '160'
+          - '161'
+          - '170'
+          - '180'
+  Error403:
+    description: |-
+      同一アプリケーションＩＤを用い、一定期間内に多数のアクセスをした結果アク
+      セス制限された後に、当該ＩＤを利用しアクセスした場合に設定されます。
+    type: string
+  Error404:
+    type: string
+    description: |-
+      指定されたアプリケーションIDが登録されていない又は無効の場合等に設定
+      されます。
+  Error500:
+    type: string
+    description: 法人番号公表機能に障害等が発生した場合に設定されます。
