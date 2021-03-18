@@ -39,6 +39,7 @@ module OpenapiClient
 
     attr_accessor :kind
 
+    # 法人番号保有者の本店又は主たる事務所の所在地の都道府県名。
     attr_accessor :prefecture_name
 
     # 法人番号保有者の本店又は主たる事務所の所在地の市区町村名。
@@ -176,7 +177,7 @@ module OpenapiClient
         :'name' => :'String',
         :'name_image_id' => :'Integer',
         :'kind' => :'CorporateType',
-        :'prefecture_name' => :'Prefecture',
+        :'prefecture_name' => :'String',
         :'city_name' => :'String',
         :'street_number' => :'String',
         :'address_image_id' => :'Integer',
@@ -346,6 +347,11 @@ module OpenapiClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      pattern = Regexp.new(/(北海道|青森県|岩手県|宮城県|秋田県|山形県|福島県|茨城県|栃木県|群馬県|埼玉県|千葉県|東京都|神奈川県|新潟県|富山県|石川県|福井県|山梨県|長野県|岐阜県|静岡県|愛知県|三重県|滋賀県|京都府|大阪府|兵庫県|奈良県|和歌山県|鳥取県|島根県|岡山県|広島県|山口県|徳島県|香川県|愛媛県|高知県|福岡県|佐賀県|長崎県|熊本県|大分県|宮崎県|鹿児島県|沖縄県)/)
+      if !@prefecture_name.nil? && @prefecture_name !~ pattern
+        invalid_properties.push("invalid value for \"prefecture_name\", must conform to the pattern #{pattern}.")
+      end
+
       if !@prefecture_code.nil? && @prefecture_code > 47
         invalid_properties.push('invalid value for "prefecture_code", must be smaller than or equal to 47.')
       end
@@ -360,11 +366,23 @@ module OpenapiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if !@prefecture_name.nil? && @prefecture_name !~ Regexp.new(/(北海道|青森県|岩手県|宮城県|秋田県|山形県|福島県|茨城県|栃木県|群馬県|埼玉県|千葉県|東京都|神奈川県|新潟県|富山県|石川県|福井県|山梨県|長野県|岐阜県|静岡県|愛知県|三重県|滋賀県|京都府|大阪府|兵庫県|奈良県|和歌山県|鳥取県|島根県|岡山県|広島県|山口県|徳島県|香川県|愛媛県|高知県|福岡県|佐賀県|長崎県|熊本県|大分県|宮崎県|鹿児島県|沖縄県)/)
       return false if !@prefecture_code.nil? && @prefecture_code > 47
       return false if !@prefecture_code.nil? && @prefecture_code < 1
       close_cause_validator = EnumAttributeValidator.new('String', ["01", "11", "21", "31"])
       return false unless close_cause_validator.valid?(@close_cause)
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] prefecture_name Value to be assigned
+    def prefecture_name=(prefecture_name)
+      pattern = Regexp.new(/(北海道|青森県|岩手県|宮城県|秋田県|山形県|福島県|茨城県|栃木県|群馬県|埼玉県|千葉県|東京都|神奈川県|新潟県|富山県|石川県|福井県|山梨県|長野県|岐阜県|静岡県|愛知県|三重県|滋賀県|京都府|大阪府|兵庫県|奈良県|和歌山県|鳥取県|島根県|岡山県|広島県|山口県|徳島県|香川県|愛媛県|高知県|福岡県|佐賀県|長崎県|熊本県|大分県|宮崎県|鹿児島県|沖縄県)/)
+      if !prefecture_name.nil? && prefecture_name !~ pattern
+        fail ArgumentError, "invalid value for \"prefecture_name\", must conform to the pattern #{pattern}."
+      end
+
+      @prefecture_name = prefecture_name
     end
 
     # Custom attribute writer method with validation

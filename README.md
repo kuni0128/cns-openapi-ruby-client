@@ -99,7 +99,6 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::Error400](docs/Error400.md)
  - [OpenapiClient::GetCorporationsResponse](docs/GetCorporationsResponse.md)
  - [OpenapiClient::GetCorporationsResponseCorporations](docs/GetCorporationsResponseCorporations.md)
- - [OpenapiClient::Prefecture](docs/Prefecture.md)
  - [OpenapiClient::ProcessCode](docs/ProcessCode.md)
 
 

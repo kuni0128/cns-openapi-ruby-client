@@ -13,7 +13,7 @@
 | **name** | **String** | 法人番号保有者の商号又は名称を示すデータ項目。 | [optional] |
 | **name_image_id** | **Integer** | 商号又は名称イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。 | [optional] |
 | **kind** | [**CorporateType**](CorporateType.md) |  | [optional] |
-| **prefecture_name** | [**Prefecture**](Prefecture.md) |  | [optional] |
+| **prefecture_name** | **String** | 法人番号保有者の本店又は主たる事務所の所在地の都道府県名。 | [optional] |
 | **city_name** | **String** | 法人番号保有者の本店又は主たる事務所の所在地の市区町村名。 | [optional] |
 | **street_number** | **String** | 法人番号保有者の本店又は主たる事務所の所在地の丁目番地等。 | [optional] |
 | **address_image_id** | **Integer** | 国内所在地イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。 | [optional] |
@@ -50,7 +50,7 @@ instance = OpenapiClient::Corporation.new(
   name: 株式会社foo,
   name_image_id: 99999999,
   kind: null,
-  prefecture_name: null,
+  prefecture_name: 北海道,
   city_name: 旭川市,
   street_number: 大字下白銀町７,
   address_image_id: 87308,

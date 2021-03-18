@@ -32,23 +32,23 @@ describe 'CorporationApi' do
     end
   end
 
-  # unit tests for get_users_user_id
-  # Your GET endpoint
-  # get corporations
-  # @param name corporation name
-  # @param type response format type
+  # unit tests for get_corporations
+  # 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
+  # 法人名による法人情報の取得
+  # @param name 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。 
+  # @param type リクエストに対して応答するデータのファイル形式と文字コードを指定します。
   # @param [Hash] opts the optional parameters
-  # @option opts [Float] :mode search mode
-  # @option opts [Float] :target search target JIS level
-  # @option opts [Float] :address prefecture code or, prefecture &amp; city code
-  # @option opts [Float] :kind corporation type
-  # @option opts [Float] :change change history enable or disable
-  # @option opts [Float] :close close corporation enable or disable
-  # @option opts [String] :from corporation number start date
-  # @option opts [String] :to corporation number end date
-  # @option opts [Float] :divide division number
-  # @return [Array<Corporation>]
-  describe 'get_users_user_id test' do
+  # @option opts [Integer] :mode 検索方式を指定できます。 指定しない場合は、｢１｣（前方一致検索）で処理します。
+  # @option opts [Integer] :target 検索対象を指定できます。 指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。 
+  # @option opts [String] :address 国内所在地の都道府県コード又は 都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。 市区町村コードのみではエラー(エラーコード 051)となります。 
+  # @option opts [String] :kind 法人種別を指定できます。
+  # @option opts [Integer] :change 法人名や所在地の変更があった法人等に ついて過去の情報を含めて検索するかどうかを指定できます。 
+  # @option opts [Integer] :close 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。
+  # @option opts [String] :from 取得の対象とする法人番号指定年月日の開始日を指定できます。
+  # @option opts [String] :to 取得の対象とする法人番号指定年月日の終了日を指定できます。 
+  # @option opts [Integer] :divide 分割番号を指定できます。 指定しない場合は、「１」で処理します。
+  # @return [GetCorporationsResponse]
+  describe 'get_corporations test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
     end
