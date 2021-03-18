@@ -1,6 +1,6 @@
 # OpenapiClient::CorporationApi
 
-All URIs are relative to *https://api.houjin-bangou.nta.go.jp/4*
+All URIs are relative to *https://api.houjin-bangou.nta.go.jp/v4*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
@@ -9,7 +9,7 @@ All URIs are relative to *https://api.houjin-bangou.nta.go.jp/4*
 
 ## get_corporations
 
-> <GetCorporationsResponse> get_corporations(name, type, opts)
+> Object get_corporations(name, type, opts)
 
 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
 
@@ -49,7 +49,7 @@ end
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<GetCorporationsResponse>, Integer, Hash)> get_corporations_with_http_info(name, type, opts)
+> <Array(Object, Integer, Hash)> get_corporations_with_http_info(name, type, opts)
 
 ```ruby
 begin
@@ -57,7 +57,7 @@ begin
   data, status_code, headers = api_instance.get_corporations_with_http_info(name, type, opts)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <GetCorporationsResponse>
+  p data # => Object
 rescue OpenapiClient::ApiError => e
   puts "Error when calling CorporationApi->get_corporations_with_http_info: #{e}"
 end
@@ -81,7 +81,7 @@ end
 
 ### Return type
 
-[**GetCorporationsResponse**](GetCorporationsResponse.md)
+**Object**
 
 ### Authorization
 
@@ -90,5 +90,5 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/xml
+- **Accept**: application/xml, application/json
 

@@ -140,7 +140,7 @@ module OpenapiClient
     def initialize
       @scheme = 'https'
       @host = 'api.houjin-bangou.nta.go.jp'
-      @base_path = '/4'
+      @base_path = '/v4'
       @server_index = 0
       @server_operation_index = {}
       @server_variables = {}
@@ -229,7 +229,7 @@ module OpenapiClient
     def server_settings
       [
         {
-          url: "https://api.houjin-bangou.nta.go.jp/4",
+          url: "https://api.houjin-bangou.nta.go.jp/v4",
           description: "No description provided",
         }
       ]

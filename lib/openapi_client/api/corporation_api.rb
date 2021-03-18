@@ -33,7 +33,7 @@ module OpenapiClient
     # @option opts [String] :from 取得の対象とする法人番号指定年月日の開始日を指定できます。
     # @option opts [String] :to 取得の対象とする法人番号指定年月日の終了日を指定できます。 
     # @option opts [Integer] :divide 分割番号を指定できます。 指定しない場合は、「１」で処理します。
-    # @return [GetCorporationsResponse]
+    # @return [Object]
     def get_corporations(name, type, opts = {})
       data, _status_code, _headers = get_corporations_with_http_info(name, type, opts)
       data
@@ -53,7 +53,7 @@ module OpenapiClient
     # @option opts [String] :from 取得の対象とする法人番号指定年月日の開始日を指定できます。
     # @option opts [String] :to 取得の対象とする法人番号指定年月日の終了日を指定できます。 
     # @option opts [Integer] :divide 分割番号を指定できます。 指定しない場合は、「１」で処理します。
-    # @return [Array<(GetCorporationsResponse, Integer, Hash)>] GetCorporationsResponse data, response status code and response headers
+    # @return [Array<(Object, Integer, Hash)>] Object data, response status code and response headers
     def get_corporations_with_http_info(name, type, opts = {})
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: CorporationApi.get_corporations ...'
@@ -134,7 +134,7 @@ module OpenapiClient
       # header parameters
       header_params = opts[:header_params] || {}
       # HTTP header 'Accept' (if needed)
-      header_params['Accept'] = @api_client.select_header_accept(['application/xml'])
+      header_params['Accept'] = @api_client.select_header_accept(['application/xml', 'application/json'])
 
       # form parameters
       form_params = opts[:form_params] || {}
@@ -143,7 +143,7 @@ module OpenapiClient
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'GetCorporationsResponse'
+      return_type = opts[:debug_return_type] || 'Object'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []

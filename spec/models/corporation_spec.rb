@@ -170,6 +170,10 @@ describe OpenapiClient::Corporation do
   describe 'test attribute "latest"' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('Integer', [0, 1])
+      # validator.allowable_values.each do |value|
+      #   expect { instance.latest = value }.not_to raise_error
+      # end
     end
   end
 
@@ -206,6 +210,10 @@ describe OpenapiClient::Corporation do
   describe 'test attribute "hihyoji"' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('Integer', [0, 1])
+      # validator.allowable_values.each do |value|
+      #   expect { instance.hihyoji = value }.not_to raise_error
+      # end
     end
   end
 

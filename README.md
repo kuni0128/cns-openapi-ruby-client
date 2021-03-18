@@ -84,7 +84,7 @@ end
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.houjin-bangou.nta.go.jp/4*
+All URIs are relative to *https://api.houjin-bangou.nta.go.jp/v4*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -96,9 +96,6 @@ Class | Method | HTTP request | Description
  - [OpenapiClient::CorporateType](docs/CorporateType.md)
  - [OpenapiClient::Corporation](docs/Corporation.md)
  - [OpenapiClient::CorrectCode](docs/CorrectCode.md)
- - [OpenapiClient::Error400](docs/Error400.md)
- - [OpenapiClient::GetCorporationsResponse](docs/GetCorporationsResponse.md)
- - [OpenapiClient::GetCorporationsResponseCorporations](docs/GetCorporationsResponseCorporations.md)
  - [OpenapiClient::ProcessCode](docs/ProcessCode.md)
 
 

@@ -9,9 +9,6 @@ docs/CorporateType.md
 docs/Corporation.md
 docs/CorporationApi.md
 docs/CorrectCode.md
-docs/Error400.md
-docs/GetCorporationsResponse.md
-docs/GetCorporationsResponseCorporations.md
 docs/ProcessCode.md
 git_push.sh
 lib/openapi_client.rb
@@ -23,9 +20,6 @@ lib/openapi_client/configuration.rb
 lib/openapi_client/models/corporate_type.rb
 lib/openapi_client/models/corporation.rb
 lib/openapi_client/models/correct_code.rb
-lib/openapi_client/models/error400.rb
-lib/openapi_client/models/get_corporations_response.rb
-lib/openapi_client/models/get_corporations_response_corporations.rb
 lib/openapi_client/models/process_code.rb
 lib/openapi_client/version.rb
 openapi_client.gemspec
@@ -35,8 +29,5 @@ spec/configuration_spec.rb
 spec/models/corporate_type_spec.rb
 spec/models/corporation_spec.rb
 spec/models/correct_code_spec.rb
-spec/models/error400_spec.rb
-spec/models/get_corporations_response_corporations_spec.rb
-spec/models/get_corporations_response_spec.rb
 spec/models/process_code_spec.rb
 spec/spec_helper.rb

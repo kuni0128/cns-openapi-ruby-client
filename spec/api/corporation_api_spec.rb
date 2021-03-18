@@ -47,7 +47,7 @@ describe 'CorporationApi' do
   # @option opts [String] :from 取得の対象とする法人番号指定年月日の開始日を指定できます。
   # @option opts [String] :to 取得の対象とする法人番号指定年月日の終了日を指定できます。 
   # @option opts [Integer] :divide 分割番号を指定できます。 指定しない場合は、「１」で処理します。
-  # @return [GetCorporationsResponse]
+  # @return [Object]
   describe 'get_corporations test' do
     it 'should work' do
       # assertion here. ref: https://www.relishapp.com/rspec/rspec-expectations/docs/built-in-matchers

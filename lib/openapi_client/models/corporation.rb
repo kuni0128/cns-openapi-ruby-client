@@ -371,6 +371,10 @@ module OpenapiClient
       return false if !@prefecture_code.nil? && @prefecture_code < 1
       close_cause_validator = EnumAttributeValidator.new('String', ["01", "11", "21", "31"])
       return false unless close_cause_validator.valid?(@close_cause)
+      latest_validator = EnumAttributeValidator.new('Integer', [0, 1])
+      return false unless latest_validator.valid?(@latest)
+      hihyoji_validator = EnumAttributeValidator.new('Integer', [0, 1])
+      return false unless hihyoji_validator.valid?(@hihyoji)
       true
     end
 
@@ -407,6 +411,26 @@ module OpenapiClient
         fail ArgumentError, "invalid value for \"close_cause\", must be one of #{validator.allowable_values}."
       end
       @close_cause = close_cause
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] latest Object to be assigned
+    def latest=(latest)
+      validator = EnumAttributeValidator.new('Integer', [0, 1])
+      unless validator.valid?(latest)
+        fail ArgumentError, "invalid value for \"latest\", must be one of #{validator.allowable_values}."
+      end
+      @latest = latest
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] hihyoji Object to be assigned
+    def hihyoji=(hihyoji)
+      validator = EnumAttributeValidator.new('Integer', [0, 1])
+      unless validator.valid?(hihyoji)
+        fail ArgumentError, "invalid value for \"hihyoji\", must be one of #{validator.allowable_values}."
+      end
+      @hihyoji = hihyoji
     end
 
     # Checks equality by comparing each attribute.
