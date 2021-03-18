@@ -58,26 +58,26 @@ Please follow the [installation](#installation) procedure and then run the follo
 require 'openapi_client'
 
 api_instance = OpenapiClient::CorporationApi.new
-name = 'name_example' # String | corporation name
-type = 8.14 # Float | response format type
+name = 'name_example' # String | 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。 
+type = '01' # String | リクエストに対して応答するデータのファイル形式と文字コードを指定します。
 opts = {
-  mode: 8.14, # Float | search mode
-  target: 8.14, # Float | search target JIS level
-  address: 8.14, # Float | prefecture code or, prefecture & city code
-  kind: 8.14, # Float | corporation type
-  change: 8.14, # Float | change history enable or disable
-  close: 8.14, # Float | close corporation enable or disable
-  from: 'from_example', # String | corporation number start date
-  to: 'to_example', # String | corporation number end date
-  divide: 8.14 # Float | division number
+  mode: 1, # Integer | 検索方式を指定できます。 指定しない場合は、｢１｣（前方一致検索）で処理します。
+  target: 1, # Integer | 検索対象を指定できます。 指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。 
+  address: 'address_example', # String | 国内所在地の都道府県コード又は 都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。 市区町村コードのみではエラー(エラーコード 051)となります。 
+  kind: '01', # String | 法人種別を指定できます。
+  change: 0, # Integer | 法人名や所在地の変更があった法人等に ついて過去の情報を含めて検索するかどうかを指定できます。 
+  close: 0, # Integer | 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。
+  from: 'from_example', # String | 取得の対象とする法人番号指定年月日の開始日を指定できます。
+  to: 'to_example', # String | 取得の対象とする法人番号指定年月日の終了日を指定できます。 
+  divide: 56 # Integer | 分割番号を指定できます。 指定しない場合は、「１」で処理します。
 }
 
 begin
-  #Your GET endpoint
-  result = api_instance.get_users_user_id(name, type, opts)
+  #法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
+  result = api_instance.get_corporations(name, type, opts)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Exception when calling CorporationApi->get_users_user_id: #{e}"
+  puts "Exception when calling CorporationApi->get_corporations: #{e}"
 end
 
 ```
@@ -88,14 +88,19 @@ All URIs are relative to *https://api.houjin-bangou.nta.go.jp/4*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*OpenapiClient::CorporationApi* | [**get_users_user_id**](docs/CorporationApi.md#get_users_user_id) | **GET** /name | Your GET endpoint
+*OpenapiClient::CorporationApi* | [**get_corporations**](docs/CorporationApi.md#get_corporations) | **GET** /name | 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
 
 
 ## Documentation for Models
 
+ - [OpenapiClient::CorporateType](docs/CorporateType.md)
  - [OpenapiClient::Corporation](docs/Corporation.md)
+ - [OpenapiClient::CorrectCode](docs/CorrectCode.md)
  - [OpenapiClient::Error400](docs/Error400.md)
- - [OpenapiClient::User](docs/User.md)
+ - [OpenapiClient::GetCorporationsResponse](docs/GetCorporationsResponse.md)
+ - [OpenapiClient::GetCorporationsResponseCorporations](docs/GetCorporationsResponseCorporations.md)
+ - [OpenapiClient::Prefecture](docs/Prefecture.md)
+ - [OpenapiClient::ProcessCode](docs/ProcessCode.md)
 
 
 ## Documentation for Authorization

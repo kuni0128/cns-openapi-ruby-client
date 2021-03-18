@@ -18,89 +18,87 @@ module OpenapiClient
     # 一連番号
     attr_accessor :sequence_number
 
-    # 法人番号
+    # 法人番号の指定を受けた者（以下「法人番号保有者」という。）の 法人番号を示すデータ項目。
     attr_accessor :corporate_number
 
     attr_accessor :process
 
     attr_accessor :correct
 
-    # 更新年月日
+    # 法務省等からデータを受け取り、当庁でデータを更新した日付を表す。
     attr_accessor :update_date
 
-    # 変更年月日
+    # 事由が発生した日付を表すデータ項目。
     attr_accessor :change_date
 
-    # 商号又は名称
+    # 法人番号保有者の商号又は名称を示すデータ項目。
     attr_accessor :name
 
-    # 商号又は名称イメージID
+    # 商号又は名称イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。
     attr_accessor :name_image_id
 
-    # 法人種別
     attr_accessor :kind
 
-    # 国内所在地（都道府県）
     attr_accessor :prefecture_name
 
-    # 国内所在地（市区町村）
+    # 法人番号保有者の本店又は主たる事務所の所在地の市区町村名。
     attr_accessor :city_name
 
-    # 国内所在地（丁目番地等）
+    # 法人番号保有者の本店又は主たる事務所の所在地の丁目番地等。
     attr_accessor :street_number
 
-    # 国内所在地イメージID
+    # 国内所在地イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。
     attr_accessor :address_image_id
 
-    # 都道府県コード
+    # 都道府県コード。データを取り込み、名寄せ作業や不要なデータを識別する際、 当該コードを活用することにより、効率的な作業を行うことができる。
     attr_accessor :prefecture_code
 
     # 市区町村コード
     attr_accessor :city_code
 
-    # 郵便番号
+    # 国内所在地の文字情報を基に設定した郵便番号。
     attr_accessor :post_code
 
-    # 国外所在地
+    # 本店又は主たる事務所の所在地が国外にある法人番号保有者の 国外における本店又は主たる事務所の所在地を示すデータ項目。
     attr_accessor :address_outside
 
-    # 国外所在地イメージID
+    # 国外所在地イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。
     attr_accessor :address_outside_image_id
 
-    # 登記記録の閉鎖等年月日
+    # 登記記録の閉鎖等の事由が生じた年月日を表す。
     attr_accessor :close_date
 
-    # 登記記録の閉鎖等の事由
+    # 閉鎖の事由は、登記記録の閉鎖等が生じた事由を表すデータ項目。
     attr_accessor :close_cause
 
-    # 承継先法人番号
+    # 合併等による事業承継があったことにより 登記記録が閉鎖された場合の存続する法人の法人番号。
     attr_accessor :successor_corporate_number
 
-    # 変更事由の詳細
+    # 合併等による事業承継があった場合の事業承継内容を示すデータ項目。
     attr_accessor :change_cause
 
-    # 法人番号指定年月日
+    # 法人番号指定年月日は、法人番号が指定された年月日を表す。
     attr_accessor :assignment_date
 
-    # 最新履歴
+    # 応答結果のデータが、最新の情報か過去の情報かを表す。
     attr_accessor :latest
 
-    # 商号又は名称（英語表記）
+    # 法人番号保有者が登録した商号又は名称（英語表記）。
     attr_accessor :en_name
 
-    # 国内所在地（都道府県）(英語表記）
+    # 法人番号保有者が登録した本店又は主たる事務所の 所在地の都道府県名（英語表記）。
     attr_accessor :en_prefecture_name
 
-    # 国内所在地（市区町村丁目番地等）（英語表記）
+    # 法人番号保有者が登録した本店又は主たる事務所の 所在地の丁目番地等（英語表記）。
     attr_accessor :en_city_name
 
-    # 国外所在地（英語表記）
+    # 本店又は主たる事務所の所在地が国外にある法人番号保有者が 登録した国外における本店又は主たる事務所の所在地（英語表記）。
     attr_accessor :en_address_outside
 
-    # フリガナ
+    # 法人番号保有者の商号又は名称に対するフリガナ情報を示すデータ項目。
     attr_accessor :furigana
 
-    # 検索対象除外
+    # 設立登記法人のうち、登記上の所在地が、住居表示の実施や区画整理等で 既に廃止されており、現在では存在しない住所表記となっていることが 確認できた法人について、検索対象から除外していることを示すデータ項目。
     attr_accessor :hihyoji
 
     class EnumAttributeValidator
@@ -171,14 +169,14 @@ module OpenapiClient
       {
         :'sequence_number' => :'Integer',
         :'corporate_number' => :'Integer',
-        :'process' => :'String',
-        :'correct' => :'Integer',
+        :'process' => :'ProcessCode',
+        :'correct' => :'CorrectCode',
         :'update_date' => :'Date',
         :'change_date' => :'Date',
         :'name' => :'String',
         :'name_image_id' => :'Integer',
-        :'kind' => :'Integer',
-        :'prefecture_name' => :'String',
+        :'kind' => :'CorporateType',
+        :'prefecture_name' => :'Prefecture',
         :'city_name' => :'String',
         :'street_number' => :'String',
         :'address_image_id' => :'Integer',
@@ -362,35 +360,11 @@ module OpenapiClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      process_validator = EnumAttributeValidator.new('String', ["01", "11", "12", "13", "21", "22", "71", "72", "81", "99"])
-      return false unless process_validator.valid?(@process)
-      prefecture_name_validator = EnumAttributeValidator.new('String', ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"])
-      return false unless prefecture_name_validator.valid?(@prefecture_name)
       return false if !@prefecture_code.nil? && @prefecture_code > 47
       return false if !@prefecture_code.nil? && @prefecture_code < 1
       close_cause_validator = EnumAttributeValidator.new('String', ["01", "11", "21", "31"])
       return false unless close_cause_validator.valid?(@close_cause)
       true
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] process Object to be assigned
-    def process=(process)
-      validator = EnumAttributeValidator.new('String', ["01", "11", "12", "13", "21", "22", "71", "72", "81", "99"])
-      unless validator.valid?(process)
-        fail ArgumentError, "invalid value for \"process\", must be one of #{validator.allowable_values}."
-      end
-      @process = process
-    end
-
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] prefecture_name Object to be assigned
-    def prefecture_name=(prefecture_name)
-      validator = EnumAttributeValidator.new('String', ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"])
-      unless validator.valid?(prefecture_name)
-        fail ArgumentError, "invalid value for \"prefecture_name\", must be one of #{validator.allowable_values}."
-      end
-      @prefecture_name = prefecture_name
     end
 
     # Custom attribute writer method with validation

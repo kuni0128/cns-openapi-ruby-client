@@ -17,9 +17,14 @@ require 'openapi_client/version'
 require 'openapi_client/configuration'
 
 # Models
+require 'openapi_client/models/corporate_type'
 require 'openapi_client/models/corporation'
+require 'openapi_client/models/correct_code'
 require 'openapi_client/models/error400'
-require 'openapi_client/models/user'
+require 'openapi_client/models/get_corporations_response'
+require 'openapi_client/models/get_corporations_response_corporations'
+require 'openapi_client/models/prefecture'
+require 'openapi_client/models/process_code'
 
 # APIs
 require 'openapi_client/api/corporation_api'

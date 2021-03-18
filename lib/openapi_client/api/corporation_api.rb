@@ -19,53 +19,101 @@ module OpenapiClient
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
-    # Your GET endpoint
-    # get corporations
-    # @param name [String] corporation name
-    # @param type [Float] response format type
+    # 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
+    # 法人名による法人情報の取得
+    # @param name [String] 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。 
+    # @param type [String] リクエストに対して応答するデータのファイル形式と文字コードを指定します。
     # @param [Hash] opts the optional parameters
-    # @option opts [Float] :mode search mode
-    # @option opts [Float] :target search target JIS level
-    # @option opts [Float] :address prefecture code or, prefecture &amp; city code
-    # @option opts [Float] :kind corporation type
-    # @option opts [Float] :change change history enable or disable
-    # @option opts [Float] :close close corporation enable or disable
-    # @option opts [String] :from corporation number start date
-    # @option opts [String] :to corporation number end date
-    # @option opts [Float] :divide division number
-    # @return [Array<Corporation>]
-    def get_users_user_id(name, type, opts = {})
-      data, _status_code, _headers = get_users_user_id_with_http_info(name, type, opts)
+    # @option opts [Integer] :mode 検索方式を指定できます。 指定しない場合は、｢１｣（前方一致検索）で処理します。 (default to 1)
+    # @option opts [Integer] :target 検索対象を指定できます。 指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。  (default to 1)
+    # @option opts [String] :address 国内所在地の都道府県コード又は 都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。 市区町村コードのみではエラー(エラーコード 051)となります。 
+    # @option opts [String] :kind 法人種別を指定できます。
+    # @option opts [Integer] :change 法人名や所在地の変更があった法人等に ついて過去の情報を含めて検索するかどうかを指定できます。  (default to 0)
+    # @option opts [Integer] :close 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。 (default to 1)
+    # @option opts [String] :from 取得の対象とする法人番号指定年月日の開始日を指定できます。
+    # @option opts [String] :to 取得の対象とする法人番号指定年月日の終了日を指定できます。 
+    # @option opts [Integer] :divide 分割番号を指定できます。 指定しない場合は、「１」で処理します。
+    # @return [GetCorporationsResponse]
+    def get_corporations(name, type, opts = {})
+      data, _status_code, _headers = get_corporations_with_http_info(name, type, opts)
       data
     end
 
-    # Your GET endpoint
-    # get corporations
-    # @param name [String] corporation name
-    # @param type [Float] response format type
+    # 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
+    # 法人名による法人情報の取得
+    # @param name [String] 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。 
+    # @param type [String] リクエストに対して応答するデータのファイル形式と文字コードを指定します。
     # @param [Hash] opts the optional parameters
-    # @option opts [Float] :mode search mode
-    # @option opts [Float] :target search target JIS level
-    # @option opts [Float] :address prefecture code or, prefecture &amp; city code
-    # @option opts [Float] :kind corporation type
-    # @option opts [Float] :change change history enable or disable
-    # @option opts [Float] :close close corporation enable or disable
-    # @option opts [String] :from corporation number start date
-    # @option opts [String] :to corporation number end date
-    # @option opts [Float] :divide division number
-    # @return [Array<(Array<Corporation>, Integer, Hash)>] Array<Corporation> data, response status code and response headers
-    def get_users_user_id_with_http_info(name, type, opts = {})
+    # @option opts [Integer] :mode 検索方式を指定できます。 指定しない場合は、｢１｣（前方一致検索）で処理します。
+    # @option opts [Integer] :target 検索対象を指定できます。 指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。 
+    # @option opts [String] :address 国内所在地の都道府県コード又は 都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。 市区町村コードのみではエラー(エラーコード 051)となります。 
+    # @option opts [String] :kind 法人種別を指定できます。
+    # @option opts [Integer] :change 法人名や所在地の変更があった法人等に ついて過去の情報を含めて検索するかどうかを指定できます。 
+    # @option opts [Integer] :close 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。
+    # @option opts [String] :from 取得の対象とする法人番号指定年月日の開始日を指定できます。
+    # @option opts [String] :to 取得の対象とする法人番号指定年月日の終了日を指定できます。 
+    # @option opts [Integer] :divide 分割番号を指定できます。 指定しない場合は、「１」で処理します。
+    # @return [Array<(GetCorporationsResponse, Integer, Hash)>] GetCorporationsResponse data, response status code and response headers
+    def get_corporations_with_http_info(name, type, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: CorporationApi.get_users_user_id ...'
+        @api_client.config.logger.debug 'Calling API: CorporationApi.get_corporations ...'
       end
       # verify the required parameter 'name' is set
       if @api_client.config.client_side_validation && name.nil?
-        fail ArgumentError, "Missing the required parameter 'name' when calling CorporationApi.get_users_user_id"
+        fail ArgumentError, "Missing the required parameter 'name' when calling CorporationApi.get_corporations"
       end
       # verify the required parameter 'type' is set
       if @api_client.config.client_side_validation && type.nil?
-        fail ArgumentError, "Missing the required parameter 'type' when calling CorporationApi.get_users_user_id"
+        fail ArgumentError, "Missing the required parameter 'type' when calling CorporationApi.get_corporations"
       end
+      # verify enum value
+      allowable_values = ["01", "02", "12"]
+      if @api_client.config.client_side_validation && !allowable_values.include?(type)
+        fail ArgumentError, "invalid value for \"type\", must be one of #{allowable_values}"
+      end
+      allowable_values = [1, 2]
+      if @api_client.config.client_side_validation && opts[:'mode'] && !allowable_values.include?(opts[:'mode'])
+        fail ArgumentError, "invalid value for \"mode\", must be one of #{allowable_values}"
+      end
+      allowable_values = [1, 2, 3]
+      if @api_client.config.client_side_validation && opts[:'target'] && !allowable_values.include?(opts[:'target'])
+        fail ArgumentError, "invalid value for \"target\", must be one of #{allowable_values}"
+      end
+      pattern = Regexp.new(/[0-9]{2,5}/)
+      if @api_client.config.client_side_validation && !opts[:'address'].nil? && opts[:'address'] !~ pattern
+        fail ArgumentError, "invalid value for 'opts[:\"address\"]' when calling CorporationApi.get_corporations, must conform to the pattern #{pattern}."
+      end
+
+      allowable_values = ["01", "02", "03", "04"]
+      if @api_client.config.client_side_validation && opts[:'kind'] && !allowable_values.include?(opts[:'kind'])
+        fail ArgumentError, "invalid value for \"kind\", must be one of #{allowable_values}"
+      end
+      allowable_values = [0, 1]
+      if @api_client.config.client_side_validation && opts[:'change'] && !allowable_values.include?(opts[:'change'])
+        fail ArgumentError, "invalid value for \"change\", must be one of #{allowable_values}"
+      end
+      allowable_values = [0, 1]
+      if @api_client.config.client_side_validation && opts[:'close'] && !allowable_values.include?(opts[:'close'])
+        fail ArgumentError, "invalid value for \"close\", must be one of #{allowable_values}"
+      end
+      pattern = Regexp.new(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)
+      if @api_client.config.client_side_validation && !opts[:'from'].nil? && opts[:'from'] !~ pattern
+        fail ArgumentError, "invalid value for 'opts[:\"from\"]' when calling CorporationApi.get_corporations, must conform to the pattern #{pattern}."
+      end
+
+      pattern = Regexp.new(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)
+      if @api_client.config.client_side_validation && !opts[:'to'].nil? && opts[:'to'] !~ pattern
+        fail ArgumentError, "invalid value for 'opts[:\"to\"]' when calling CorporationApi.get_corporations, must conform to the pattern #{pattern}."
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'divide'].nil? && opts[:'divide'] > 99999
+        fail ArgumentError, 'invalid value for "opts[:"divide"]" when calling CorporationApi.get_corporations, must be smaller than or equal to 99999.'
+      end
+
+      if @api_client.config.client_side_validation && !opts[:'divide'].nil? && opts[:'divide'] < 1
+        fail ArgumentError, 'invalid value for "opts[:"divide"]" when calling CorporationApi.get_corporations, must be greater than or equal to 1.'
+      end
+
       # resource path
       local_var_path = '/name'
 
@@ -95,13 +143,13 @@ module OpenapiClient
       post_body = opts[:debug_body]
 
       # return_type
-      return_type = opts[:debug_return_type] || 'Array<Corporation>'
+      return_type = opts[:debug_return_type] || 'GetCorporationsResponse'
 
       # auth_names
       auth_names = opts[:debug_auth_names] || []
 
       new_options = opts.merge(
-        :operation => :"CorporationApi.get_users_user_id",
+        :operation => :"CorporationApi.get_corporations",
         :header_params => header_params,
         :query_params => query_params,
         :form_params => form_params,
@@ -112,7 +160,7 @@ module OpenapiClient
 
       data, status_code, headers = @api_client.call_api(:GET, local_var_path, new_options)
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: CorporationApi#get_users_user_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: CorporationApi#get_corporations\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

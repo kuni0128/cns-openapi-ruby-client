@@ -4,16 +4,16 @@ All URIs are relative to *https://api.houjin-bangou.nta.go.jp/4*
 
 | Method | HTTP request | Description |
 | ------ | ------------ | ----------- |
-| [**get_users_user_id**](CorporationApi.md#get_users_user_id) | **GET** /name | Your GET endpoint |
+| [**get_corporations**](CorporationApi.md#get_corporations) | **GET** /name | 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。 |
 
 
-## get_users_user_id
+## get_corporations
 
-> <Array<Corporation>> get_users_user_id(name, type, opts)
+> <GetCorporationsResponse> get_corporations(name, type, opts)
 
-Your GET endpoint
+法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
 
-get corporations
+法人名による法人情報の取得
 
 ### Examples
 
@@ -22,44 +22,44 @@ require 'time'
 require 'openapi_client'
 
 api_instance = OpenapiClient::CorporationApi.new
-name = 'name_example' # String | corporation name
-type = 8.14 # Float | response format type
+name = 'name_example' # String | 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。 
+type = '01' # String | リクエストに対して応答するデータのファイル形式と文字コードを指定します。
 opts = {
-  mode: 8.14, # Float | search mode
-  target: 8.14, # Float | search target JIS level
-  address: 8.14, # Float | prefecture code or, prefecture & city code
-  kind: 8.14, # Float | corporation type
-  change: 8.14, # Float | change history enable or disable
-  close: 8.14, # Float | close corporation enable or disable
-  from: 'from_example', # String | corporation number start date
-  to: 'to_example', # String | corporation number end date
-  divide: 8.14 # Float | division number
+  mode: 1, # Integer | 検索方式を指定できます。 指定しない場合は、｢１｣（前方一致検索）で処理します。
+  target: 1, # Integer | 検索対象を指定できます。 指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。 
+  address: 'address_example', # String | 国内所在地の都道府県コード又は 都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。 市区町村コードのみではエラー(エラーコード 051)となります。 
+  kind: '01', # String | 法人種別を指定できます。
+  change: 0, # Integer | 法人名や所在地の変更があった法人等に ついて過去の情報を含めて検索するかどうかを指定できます。 
+  close: 0, # Integer | 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。
+  from: 'from_example', # String | 取得の対象とする法人番号指定年月日の開始日を指定できます。
+  to: 'to_example', # String | 取得の対象とする法人番号指定年月日の終了日を指定できます。 
+  divide: 56 # Integer | 分割番号を指定できます。 指定しない場合は、「１」で処理します。
 }
 
 begin
-  # Your GET endpoint
-  result = api_instance.get_users_user_id(name, type, opts)
+  # 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
+  result = api_instance.get_corporations(name, type, opts)
   p result
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling CorporationApi->get_users_user_id: #{e}"
+  puts "Error when calling CorporationApi->get_corporations: #{e}"
 end
 ```
 
-#### Using the get_users_user_id_with_http_info variant
+#### Using the get_corporations_with_http_info variant
 
 This returns an Array which contains the response data, status code and headers.
 
-> <Array(<Array<Corporation>>, Integer, Hash)> get_users_user_id_with_http_info(name, type, opts)
+> <Array(<GetCorporationsResponse>, Integer, Hash)> get_corporations_with_http_info(name, type, opts)
 
 ```ruby
 begin
-  # Your GET endpoint
-  data, status_code, headers = api_instance.get_users_user_id_with_http_info(name, type, opts)
+  # 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
+  data, status_code, headers = api_instance.get_corporations_with_http_info(name, type, opts)
   p status_code # => 2xx
   p headers # => { ... }
-  p data # => <Array<Corporation>>
+  p data # => <GetCorporationsResponse>
 rescue OpenapiClient::ApiError => e
-  puts "Error when calling CorporationApi->get_users_user_id_with_http_info: #{e}"
+  puts "Error when calling CorporationApi->get_corporations_with_http_info: #{e}"
 end
 ```
 
@@ -67,21 +67,21 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **name** | **String** | corporation name |  |
-| **type** | **Float** | response format type |  |
-| **mode** | **Float** | search mode | [optional] |
-| **target** | **Float** | search target JIS level | [optional] |
-| **address** | **Float** | prefecture code or, prefecture &amp; city code | [optional] |
-| **kind** | **Float** | corporation type | [optional] |
-| **change** | **Float** | change history enable or disable | [optional] |
-| **close** | **Float** | close corporation enable or disable | [optional] |
-| **from** | **String** | corporation number start date | [optional] |
-| **to** | **String** | corporation number end date | [optional] |
-| **divide** | **Float** | division number | [optional] |
+| **name** | **String** | 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。  |  |
+| **type** | **String** | リクエストに対して応答するデータのファイル形式と文字コードを指定します。 |  |
+| **mode** | **Integer** | 検索方式を指定できます。 指定しない場合は、｢１｣（前方一致検索）で処理します。 | [optional][default to 1] |
+| **target** | **Integer** | 検索対象を指定できます。 指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。  | [optional][default to 1] |
+| **address** | **String** | 国内所在地の都道府県コード又は 都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。 市区町村コードのみではエラー(エラーコード 051)となります。  | [optional] |
+| **kind** | **String** | 法人種別を指定できます。 | [optional] |
+| **change** | **Integer** | 法人名や所在地の変更があった法人等に ついて過去の情報を含めて検索するかどうかを指定できます。  | [optional][default to 0] |
+| **close** | **Integer** | 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。 | [optional][default to 1] |
+| **from** | **String** | 取得の対象とする法人番号指定年月日の開始日を指定できます。 | [optional] |
+| **to** | **String** | 取得の対象とする法人番号指定年月日の終了日を指定できます。  | [optional] |
+| **divide** | **Integer** | 分割番号を指定できます。 指定しない場合は、「１」で処理します。 | [optional] |
 
 ### Return type
 
-[**Array&lt;Corporation&gt;**](Corporation.md)
+[**GetCorporationsResponse**](GetCorporationsResponse.md)
 
 ### Authorization
 
