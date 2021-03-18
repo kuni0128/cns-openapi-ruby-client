@@ -18,71 +18,40 @@ consumes:
 securityDefinitions:
   id:
     name: Application ID
-    description: 国税庁から取得したApplication ID
+    description: 国税庁に申請して取得した認証用のアプリケーションIDです。
     type: apiKey
     in: query
 paths:
   /name:
     get:
-      summary: Your GET endpoint
+      summary: 法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。
       tags:
         - Corporation
-      operationId: get-users-userId
-      description: get corporations
+      operationId: GetCorporations
+      description: 法人名による法人情報の取得
       parameters:
-        - type: string
+        - name: name
+          type: string
           in: query
-          name: name
-          description: corporation name
+          description: |-
+            取得の対象とする法人名を
+            URL エンコード（UTF-8）した値をセットします。 
           required: true
-        - type: number
-          in: query
-          name: type
-          description: response format type
-          required: true
-        - type: number
-          in: query
-          name: mode
-          description: search mode
-        - type: number
-          in: query
-          name: target
-          description: search target JIS level
-        - type: number
-          in: query
-          name: address
-          description: 'prefecture code or, prefecture & city code'
-        - type: number
-          in: query
-          name: kind
-          description: corporation type
-        - type: number
-          in: query
-          name: change
-          description: change history enable or disable
-        - type: number
-          in: query
-          name: close
-          description: close corporation enable or disable
-        - type: string
-          in: query
-          name: from
-          description: corporation number start date
-        - type: string
-          in: query
-          name: to
-          description: corporation number end date
-        - type: number
-          in: query
-          name: divide
-          description: division number
+        - $ref: '#/parameters/type'
+        - $ref: '#/parameters/mode'
+        - $ref: '#/parameters/target'
+        - $ref: '#/parameters/address'
+        - $ref: '#/parameters/kind'
+        - $ref: '#/parameters/change'
+        - $ref: '#/parameters/close'
+        - $ref: '#/parameters/from'
+        - $ref: '#/parameters/to'
+        - $ref: '#/parameters/divide'
       responses:
         '200':
           description: OK
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Corporation'
+            $ref: '#/definitions/GetCorporationsResponse'
         '400':
           description: Bad Request
           schema:
@@ -100,6 +69,95 @@ paths:
           schema:
             $ref: '#/definitions/Error500'
 definitions:
+  ProcessCode:
+    type: string
+    description: 法人番号の指定、商号又は所在地に変更等が発生した事由をコード値で表す項目。
+    enum:
+      - '01'
+      - '11'
+      - '12'
+      - '13'
+      - '21'
+      - '22'
+      - '71'
+      - '72'
+      - '81'
+      - '99'
+    example: '01'
+  CorrectCode:
+    type: integer
+    description: 提供していたデータについて、次の場合に値を設定するデータ項目。
+    enum:
+      - 0
+      - 1
+    example: 0
+  CorporateType:
+    type: integer
+    description: 法人種別を判別するためのデータ項目。
+    enum:
+      - 101
+      - 201
+      - 301
+      - 302
+      - 303
+      - 304
+      - 305
+      - 399
+      - 401
+      - 499
+    example: 101
+  Prefecture:
+    type: string
+    description: 法人番号保有者の本店又は主たる事務所の所在地の都道府県名。
+    enum:
+      - 北海道
+      - 青森県
+      - 岩手県
+      - 宮城県
+      - 秋田県
+      - 山形県
+      - 福島県
+      - 茨城県
+      - 栃木県
+      - 群馬県
+      - 埼玉県
+      - 千葉県
+      - 東京都
+      - 神奈川県
+      - 新潟県
+      - 富山県
+      - 石川県
+      - 福井県
+      - 山梨県
+      - 長野県
+      - 岐阜県
+      - 静岡県
+      - 愛知県
+      - 三重県
+      - 滋賀県
+      - 京都府
+      - 大阪府
+      - 兵庫県
+      - 奈良県
+      - 和歌山県
+      - 鳥取県
+      - 島根県
+      - 岡山県
+      - 広島県
+      - 山口県
+      - 徳島県
+      - 香川県
+      - 愛媛県
+      - 高知県
+      - 福岡県
+      - 佐賀県
+      - 長崎県
+      - 熊本県
+      - 大分県
+      - 宮崎県
+      - 鹿児島県
+      - 沖縄県
+    example: 北海道
   Corporation:
     type: object
     properties:
@@ -110,127 +168,56 @@ definitions:
       corporateNumber:
         type: integer
         example: 9999999999999
-        description: 法人番号
+        description: |-
+          法人番号の指定を受けた者（以下「法人番号保有者」という。）の
+          法人番号を示すデータ項目。
       process:
-        type: string
-        enum:
-          - '01'
-          - '11'
-          - '12'
-          - '13'
-          - '21'
-          - '22'
-          - '71'
-          - '72'
-          - '81'
-          - '99'
-        example: '01'
+        $ref: '#/definitions/ProcessCode'
       correct:
-        type: integer
-        enum:
-          - 0
-          - 1
-        example: 0
+        $ref: '#/definitions/CorrectCode'
       updateDate:
         type: string
-        description: 更新年月日
+        description: 法務省等からデータを受け取り、当庁でデータを更新した日付を表す。
         format: date
         example: '2018-04-02'
       changeDate:
         type: string
         format: date
-        description: 変更年月日
+        description: 事由が発生した日付を表すデータ項目。
         example: '2015-10-05'
       name:
         type: string
-        description: 商号又は名称
+        description: 法人番号保有者の商号又は名称を示すデータ項目。
         example: 株式会社foo
       nameImageId:
         type: integer
-        description: 商号又は名称イメージID
+        description: |-
+          商号又は名称イメージIDは、
+          イメージファイルを閲覧するために指定する値（情報）。
         example: 99999999
       kind:
-        type: integer
-        description: 法人種別
-        enum:
-          - 101
-          - 201
-          - 301
-          - 302
-          - 303
-          - 304
-          - 305
-          - 399
-          - 401
-          - 499
-        example: 101
+        $ref: '#/definitions/CorporateType'
       prefectureName:
-        type: string
-        description: 国内所在地（都道府県）
-        enum:
-          - 北海道
-          - 青森県
-          - 岩手県
-          - 宮城県
-          - 秋田県
-          - 山形県
-          - 福島県
-          - 茨城県
-          - 栃木県
-          - 群馬県
-          - 埼玉県
-          - 千葉県
-          - 東京都
-          - 神奈川県
-          - 新潟県
-          - 富山県
-          - 石川県
-          - 福井県
-          - 山梨県
-          - 長野県
-          - 岐阜県
-          - 静岡県
-          - 愛知県
-          - 三重県
-          - 滋賀県
-          - 京都府
-          - 大阪府
-          - 兵庫県
-          - 奈良県
-          - 和歌山県
-          - 鳥取県
-          - 島根県
-          - 岡山県
-          - 広島県
-          - 山口県
-          - 徳島県
-          - 香川県
-          - 愛媛県
-          - 高知県
-          - 福岡県
-          - 佐賀県
-          - 長崎県
-          - 熊本県
-          - 大分県
-          - 宮崎県
-          - 鹿児島県
-          - 沖縄県
-        example: 北海道
+        $ref: '#/definitions/Prefecture'
       cityName:
         type: string
-        description: 国内所在地（市区町村）
+        description: 法人番号保有者の本店又は主たる事務所の所在地の市区町村名。
         example: 旭川市
       streetNumber:
         type: string
-        description: 国内所在地（丁目番地等）
+        description: 法人番号保有者の本店又は主たる事務所の所在地の丁目番地等。
         example: 大字下白銀町７
       addressImageId:
         type: integer
-        description: 国内所在地イメージID
+        description: |-
+          国内所在地イメージIDは、
+          イメージファイルを閲覧するために指定する値（情報）。
         example: 87308
       prefectureCode:
         type: integer
-        description: 都道府県コード
+        description: |-
+          都道府県コード。データを取り込み、名寄せ作業や不要なデータを識別する際、
+          当該コードを活用することにより、効率的な作業を行うことができる。
         example: 1
         minimum: 1
         maximum: 47
@@ -240,24 +227,28 @@ definitions:
         example: 111
       postCode:
         type: integer
-        description: 郵便番号
+        description: 国内所在地の文字情報を基に設定した郵便番号。
         example: 7777777
       addressOutside:
         type: string
-        description: 国外所在地
-        example: '47 W 13th St, New York, NY 10011, USA'
+        description: |-
+          本店又は主たる事務所の所在地が国外にある法人番号保有者の
+          国外における本店又は主たる事務所の所在地を示すデータ項目。
+        example: ニューヨーク州ブロンクス区西２６３丁目１番地
       addressOutsideImageId:
         type: integer
-        description: 国外所在地イメージID
+        description: |-
+          国外所在地イメージIDは、
+          イメージファイルを閲覧するために指定する値（情報）。
         example: 1
       closeDate:
         type: string
-        description: 登記記録の閉鎖等年月日
+        description: 登記記録の閉鎖等の事由が生じた年月日を表す。
         format: date
         example: '2017-03-31'
       closeCause:
         type: string
-        description: 登記記録の閉鎖等の事由
+        description: 閉鎖の事由は、登記記録の閉鎖等が生じた事由を表すデータ項目。
         enum:
           - '01'
           - '11'
@@ -266,62 +257,89 @@ definitions:
         example: '01'
       successorCorporateNumber:
         type: integer
-        description: 承継先法人番号
+        description: |-
+          合併等による事業承継があったことにより
+          登記記録が閉鎖された場合の存続する法人の法人番号。
         example: 1
       changeCause:
         type: string
-        description: 変更事由の詳細
+        description: 合併等による事業承継があった場合の事業承継内容を示すデータ項目。
         example: 不本意ながら吸収合併されたため。
       assignmentDate:
         type: string
-        description: 法人番号指定年月日
+        description: 法人番号指定年月日は、法人番号が指定された年月日を表す。
         format: date
         example: '2010-01-01'
       latest:
         type: integer
-        description: 最新履歴
+        description: 応答結果のデータが、最新の情報か過去の情報かを表す。
         enum:
           - 0
           - 1
         example: 0
       enName:
         type: string
-        description: 商号又は名称（英語表記）
-        example: foo company
+        description: 法人番号保有者が登録した商号又は名称（英語表記）。
+        example: Netflix
       enPrefectureName:
         type: string
-        description: 国内所在地（都道府県）(英語表記）
+        description: |-
+          法人番号保有者が登録した本店又は主たる事務所の
+          所在地の都道府県名（英語表記）。
         example: Hokkaido
       enCityName:
         type: string
-        description: 国内所在地（市区町村丁目番地等）（英語表記）
+        description: |-
+          法人番号保有者が登録した本店又は主たる事務所の
+          所在地の丁目番地等（英語表記）。
         example: '1-1-1,Uchimaru, Hachinohe shi'
       enAddressOutside:
         type: string
-        description: 国外所在地（英語表記）
+        description: |-
+          本店又は主たる事務所の所在地が国外にある法人番号保有者が
+          登録した国外における本店又は主たる事務所の所在地（英語表記）。
         example: '47 W 13th St, New York, NY 10011, USA'
       furigana:
         type: string
-        description: フリガナ
+        description: 法人番号保有者の商号又は名称に対するフリガナ情報を示すデータ項目。
         example: ワッツマンリサーチ
       hihyoji:
         type: integer
-        description: 検索対象除外
+        description: |-
+          設立登記法人のうち、登記上の所在地が、住居表示の実施や区画整理等で
+          既に廃止されており、現在では存在しない住所表記となっていることが
+          確認できた法人について、検索対象から除外していることを示すデータ項目。
         enum:
           - 0
           - 1
         example: 0
-  User:
-    title: User
+  GetCorporationsResponse:
     type: object
+    description: 基本３情報及び付随する情報を含む応答結果です。
     properties:
-      firstName:
-        type: string
-      lastName:
-        type: string
-    required:
-      - firstName
-      - lastName
+      corporations:
+        type: object
+        properties:
+          lastUpdateDate:
+            type: string
+            description: 最終更新年月日
+            example: '2017-05-10'
+          count:
+            type: integer
+            description: 総件数
+            example: 100
+          divideNumber:
+            type: integer
+            description: 分割されたファイルの通し番号（分子）を表すデータ項目。
+            example: 1
+          divideSize:
+            type: integer
+            description: 分割されたファイルの総数（分母）にあたるデータ項目。
+            example: 1
+          corporation:
+            type: array
+            items:
+              $ref: '#/definitions/Corporation'
   Error400:
     description: error codes when http response 400 is returned
     type: object
@@ -393,3 +411,106 @@ definitions:
   Error500:
     type: string
     description: 法人番号公表機能に障害等が発生した場合に設定されます。
+parameters:
+  type:
+    name: type
+    in: query
+    required: true
+    type: string
+    description: リクエストに対して応答するデータのファイル形式と文字コードを指定します。
+    enum:
+      - '01'
+      - '02'
+      - '12'
+  mode:
+    name: mode
+    in: query
+    required: false
+    type: integer
+    description: |-
+      検索方式を指定できます。
+      指定しない場合は、｢１｣（前方一致検索）で処理します。
+    enum:
+      - 1
+      - 2
+    default: 1
+  target:
+    name: target
+    in: query
+    required: false
+    type: integer
+    description: |-
+      検索対象を指定できます。
+      指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。 
+    enum:
+      - 1
+      - 2
+      - 3
+    default: 1
+  address:
+    name: address
+    in: query
+    required: false
+    type: string
+    description: |-
+      国内所在地の都道府県コード又は
+      都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。
+      市区町村コードのみではエラー(エラーコード 051)となります。 
+    pattern: '[0-9]{2,5}'
+  kind:
+    name: kind
+    in: query
+    required: false
+    type: string
+    description: 法人種別を指定できます。
+    enum:
+      - '01'
+      - '02'
+      - '03'
+      - '04'
+  change:
+    name: change
+    in: query
+    required: false
+    type: integer
+    description: |-
+      法人名や所在地の変更があった法人等に
+      ついて過去の情報を含めて検索するかどうかを指定できます。 
+    enum:
+      - 0
+      - 1
+    default: 0
+  close:
+    name: close
+    in: query
+    required: false
+    type: integer
+    description: 登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。
+    enum:
+      - 0
+      - 1
+    default: 1
+  from:
+    name: from
+    in: query
+    required: false
+    type: string
+    description: 取得の対象とする法人番号指定年月日の開始日を指定できます。
+    pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}'
+  to:
+    name: to
+    in: query
+    required: false
+    type: string
+    description: '取得の対象とする法人番号指定年月日の終了日を指定できます。 '
+    pattern: '[0-9]{4}-[0-9]{2}-[0-9]{2}'
+  divide:
+    name: divide
+    in: query
+    required: false
+    type: integer
+    description: |-
+      分割番号を指定できます。
+      指定しない場合は、「１」で処理します。
+    minimum: 1
+    maximum: 99999
