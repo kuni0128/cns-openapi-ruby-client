@@ -25,3 +25,4 @@
 cns_openapi_ruby_client.gemspec
 lib/cns_openapi_ruby_client/api_client.rb
 spec/api_client_spec.rb
+README.md

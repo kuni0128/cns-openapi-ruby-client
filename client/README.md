@@ -1,5 +1,7 @@
 # cns_openapi_ruby_client
 
+OpenApiGenerator generates base code. Some code customized to parse xml. 
+
 CnsOpenapiRubyClient - the Ruby gem for the Corporate number system API v4
 
 Corporate number system API v4
