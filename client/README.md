@@ -57,6 +57,14 @@ Please follow the [installation](#installation) procedure and then run the follo
 # Load the gem
 require 'cns_openapi_ruby_client'
 
+# Setup authorization
+CnsOpenapiRubyClient.configure do |config|
+  # Configure API key authorization: id
+  config.api_key['id'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['id'] = 'Bearer'
+end
+
 api_instance = CnsOpenapiRubyClient::CorporationsApi.new
 name = 'name_example' # String | 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。
 type = '12' # String | リクエストに対して応答するデータのファイル形式と文字コードを指定します。

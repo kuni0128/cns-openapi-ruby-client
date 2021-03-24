@@ -89,35 +89,6 @@ describe CnsOpenapiRubyClient::ApiClient do
     end
   end
 
-  describe '#deserialize' do
-    it "handles Array<Integer>" do
-      api_client = CnsOpenapiRubyClient::ApiClient.new
-      headers = { 'Content-Type' => 'application/json' }
-      response = double('response', headers: headers, body: '[12, 34]')
-      data = api_client.deserialize(response, 'Array<Integer>')
-      expect(data).to be_instance_of(Array)
-      expect(data).to eq([12, 34])
-    end
-
-    it 'handles Array<Array<Integer>>' do
-      api_client = CnsOpenapiRubyClient::ApiClient.new
-      headers = { 'Content-Type' => 'application/json' }
-      response = double('response', headers: headers, body: '[[12, 34], [56]]')
-      data = api_client.deserialize(response, 'Array<Array<Integer>>')
-      expect(data).to be_instance_of(Array)
-      expect(data).to eq([[12, 34], [56]])
-    end
-
-    it 'handles Hash<String, String>' do
-      api_client = CnsOpenapiRubyClient::ApiClient.new
-      headers = { 'Content-Type' => 'application/json' }
-      response = double('response', headers: headers, body: '{"message": "Hello"}')
-      data = api_client.deserialize(response, 'Hash<String, String>')
-      expect(data).to be_instance_of(Hash)
-      expect(data).to eq(:message => 'Hello')
-    end
-  end
-
   describe "#object_to_hash" do
     it 'ignores nils and includes empty arrays' do
       # uncomment below to test object_to_hash for model
@@ -160,20 +131,20 @@ describe CnsOpenapiRubyClient::ApiClient do
     end
   end
 
-  describe '#json_mime?' do
+  describe '#xml_mime?' do
     let(:api_client) { CnsOpenapiRubyClient::ApiClient.new }
 
     it 'works' do
-      expect(api_client.json_mime?(nil)).to eq false
-      expect(api_client.json_mime?('')).to eq false
+      expect(api_client.xml_mime?(nil)).to eq false
+      expect(api_client.xml_mime?('')).to eq false
 
-      expect(api_client.json_mime?('application/json')).to eq true
-      expect(api_client.json_mime?('application/json; charset=UTF8')).to eq true
-      expect(api_client.json_mime?('APPLICATION/JSON')).to eq true
+      expect(api_client.xml_mime?('application/xml')).to eq true
+      expect(api_client.xml_mime?('application/xml; charset=UTF8')).to eq true
+      expect(api_client.xml_mime?('APPLICATION/JSON')).to eq false
 
-      expect(api_client.json_mime?('application/xml')).to eq false
-      expect(api_client.json_mime?('text/plain')).to eq false
-      expect(api_client.json_mime?('application/jsonp')).to eq false
+      expect(api_client.xml_mime?('application/xml')).to eq true
+      expect(api_client.xml_mime?('text/plain')).to eq false
+      expect(api_client.xml_mime?('application/jsonp')).to eq false
     end
   end
 
@@ -185,11 +156,11 @@ describe CnsOpenapiRubyClient::ApiClient do
       expect(api_client.select_header_accept([])).to be_nil
 
       expect(api_client.select_header_accept(['application/json'])).to eq('application/json')
-      expect(api_client.select_header_accept(['application/xml', 'application/json; charset=UTF8'])).to eq('application/json; charset=UTF8')
-      expect(api_client.select_header_accept(['APPLICATION/JSON', 'text/html'])).to eq('APPLICATION/JSON')
+      expect(api_client.select_header_accept(['application/xml', 'application/json; charset=UTF8'])).to eq('application/xml')
+      expect(api_client.select_header_accept(['APPLICATION/JSON', 'text/html'])).to eq('APPLICATION/JSON,text/html')
 
       expect(api_client.select_header_accept(['application/xml'])).to eq('application/xml')
-      expect(api_client.select_header_accept(['text/html', 'application/xml'])).to eq('text/html,application/xml')
+      expect(api_client.select_header_accept(['text/html', 'application/xml'])).to eq('application/xml')
     end
   end
 

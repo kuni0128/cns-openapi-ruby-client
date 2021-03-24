@@ -20,6 +20,13 @@ All URIs are relative to *https://api.houjin-bangou.nta.go.jp/4*
 ```ruby
 require 'time'
 require 'cns_openapi_ruby_client'
+# setup authorization
+CnsOpenapiRubyClient.configure do |config|
+  # Configure API key authorization: id
+  config.api_key['id'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  # config.api_key_prefix['id'] = 'Bearer'
+end
 
 api_instance = CnsOpenapiRubyClient::CorporationsApi.new
 name = 'name_example' # String | 取得の対象とする法人名を URL エンコード（UTF-8）した値をセットします。
@@ -85,7 +92,7 @@ end
 
 ### Authorization
 
-No authorization required
+[id](../README.md#id)
 
 ### HTTP request headers
 

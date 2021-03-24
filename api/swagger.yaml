@@ -267,3 +267,5 @@ components:
         application/json:
           schema:
             type: string
+security:
+  - id: []

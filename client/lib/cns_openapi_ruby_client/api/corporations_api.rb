@@ -146,7 +146,7 @@ module CnsOpenapiRubyClient
       return_type = opts[:debug_return_type] || 'ResponseWrapper'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || []
+      auth_names = opts[:debug_auth_names] || ['id']
 
       new_options = opts.merge(
         :operation => :"CorporationsApi.get_corporations",

@@ -320,8 +320,8 @@ module CnsOpenapiRubyClient
     def select_header_accept(accepts)
       return nil if accepts.nil? || accepts.empty?
       # use JSON when present, otherwise use all of the provided
-      json_accept = accepts.find { |s| json_mime?(s) }
-      json_accept || accepts.join(',')
+      xml_accept = accepts.find { |s| xml_mime?(s) }
+      xml_accept || accepts.join(',')
     end
 
     # Return Content-Type header based on an array of content types provided.
@@ -329,10 +329,10 @@ module CnsOpenapiRubyClient
     # @return [String] the Content-Type header  (e.g. application/json)
     def select_header_content_type(content_types)
       # use application/json by default
-      return 'application/json' if content_types.nil? || content_types.empty?
-      # use JSON when present, otherwise use the first one
-      json_content_type = content_types.find { |s| json_mime?(s) }
-      json_content_type || content_types.first
+      return 'application/xml' if content_types.nil? || content_types.empty?
+
+      xml_content_type = content_types.find { |s| xml_mime?(s) }
+      xml_content_type || content_types.first
     end
 
     # Convert object (array, hash, object, etc) to JSON string.
