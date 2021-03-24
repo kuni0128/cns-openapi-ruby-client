@@ -16,6 +16,8 @@ require 'logger'
 require 'tempfile'
 require 'time'
 require 'typhoeus'
+require 'active_support/core_ext/hash'
+
 
 module CnsOpenapiRubyClient
   class ApiClient
@@ -202,8 +204,8 @@ module CnsOpenapiRubyClient
     #   */*
     # @param [String] mime MIME
     # @return [Boolean] True if the MIME is application/json
-    def json_mime?(mime)
-      (mime == '*/*') || !(mime =~ /Application\/.*json(?!p)(;.*)?/i).nil?
+    def xml_mime?(mime)
+      (mime == '*/*') || !(mime =~ /Application\/.*xml(?!p)(;.*)?/i).nil?
     end
 
     # Deserialize the response to the given return type.
@@ -223,19 +225,10 @@ module CnsOpenapiRubyClient
       return body if return_type == 'String'
 
       # ensuring a default content type
-      content_type = response.headers['Content-Type'] || 'application/json'
+      content_type = response.headers['Content-Type'] || 'application/xml'
+      fail "Content-Type is not supported: #{content_type}" unless xml_mime?(content_type)
 
-      fail "Content-Type is not supported: #{content_type}" unless json_mime?(content_type)
-
-      begin
-        data = JSON.parse("[#{body}]", :symbolize_names => true)[0]
-      rescue JSON::ParserError => e
-        if %w(String Date Time).include?(return_type)
-          data = body
-        else
-          raise e
-        end
-      end
+      data = Hash.from_xml(body).deep_symbolize_keys
 
       convert_to_type data, return_type
     end

@@ -5,7 +5,6 @@
 Gemfile
 README.md
 Rakefile
-cns_openapi_ruby_client.gemspec
 docs/CorporateType.md
 docs/Corporation.md
 docs/CorporationsApi.md
@@ -16,7 +15,6 @@ docs/ResponseWrapper.md
 git_push.sh
 lib/cns_openapi_ruby_client.rb
 lib/cns_openapi_ruby_client/api/corporations_api.rb
-lib/cns_openapi_ruby_client/api_client.rb
 lib/cns_openapi_ruby_client/api_error.rb
 lib/cns_openapi_ruby_client/configuration.rb
 lib/cns_openapi_ruby_client/configuration.rb
