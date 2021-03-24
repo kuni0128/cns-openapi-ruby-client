@@ -1,5 +1,5 @@
 title: CorrectCodeType
-type: integer
+type: string
 description: 提供していたデータについて、次の場合に値を設定するデータ項目。
 enum:
   - 0

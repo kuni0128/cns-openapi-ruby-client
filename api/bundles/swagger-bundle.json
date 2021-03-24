@@ -176,7 +176,7 @@
       },
       "CorrectCodeType": {
         "title": "CorrectCodeType",
-        "type": "integer",
+        "type": "string",
         "description": "提供していたデータについて、次の場合に値を設定するデータ項目。",
         "enum": [
           0,
@@ -190,7 +190,7 @@
       "CorporateType": {
         "title": "CorporateType",
         "description": "法人種別を判別するためのデータ項目。",
-        "type": "integer",
+        "type": "string",
         "enum": [
           101,
           201,
