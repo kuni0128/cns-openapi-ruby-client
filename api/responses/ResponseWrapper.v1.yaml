@@ -1,0 +1,7 @@
+title: ResponseWrapper
+type: object
+properties:
+  corporations:
+    $ref: ./Response.v1.yaml
+required:
+  - corporations

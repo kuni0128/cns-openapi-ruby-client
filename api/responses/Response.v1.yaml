@@ -1,0 +1,30 @@
+title: Response
+description: 基本３情報及び付随する情報を含む応答結果です。
+type: object
+properties:
+  lastUpdateDate:
+    type: string
+    description: 最終更新年月日
+    example: '2017-05-10'
+  count:
+    type: integer
+    description: 総件数
+    example: 100
+  divideNumber:
+    type: integer
+    description: 分割されたファイルの通し番号（分子）を表すデータ項目。
+    example: 1
+  divideSize:
+    type: integer
+    description: 分割されたファイルの総数（分母）にあたるデータ項目。
+    example: 1
+  corporation:
+    type: array
+    items:
+      $ref: ../models/Corporation.v1.yaml
+required:
+  - lastUpdateDate
+  - count
+  - divideNumber
+  - divideSize
+  - corporation

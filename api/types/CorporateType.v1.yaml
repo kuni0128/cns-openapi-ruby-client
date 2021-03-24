@@ -1,0 +1,17 @@
+title: CorporateType
+description: 法人種別を判別するためのデータ項目。
+type: string
+enum:
+  - 101
+  - 201
+  - 301
+  - 302
+  - 303
+  - 304
+  - 305
+  - 399
+  - 401
+  - 499
+example: 101
+x-examples:
+  example-1: 101
