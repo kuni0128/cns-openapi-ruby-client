@@ -1,0 +1,651 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Corporate number system API v4",
+    "description": "Corporate number system API v4",
+    "termsOfService": "https://www.houjin-bangou.nta.go.jp/webapi/riyokiyaku.html",
+    "contact": {
+      "name": "Contact Information",
+      "url": "https://www.houjin-bangou.nta.go.jp/webapi/toiawase/"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.houjin-bangou.nta.go.jp/4"
+    }
+  ],
+  "tags": [
+    {
+      "name": "corporations"
+    }
+  ],
+  "paths": {
+    "/name": {
+      "get": {
+        "summary": "法人名を指定しリクエストすることで、指定した法人名の基本３情報及び付随する情報を取得することができます。",
+        "operationId": "GetCorporations",
+        "description": "法人名による法人情報の取得",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "取得の対象とする法人名を\nURL エンコード（UTF-8）した値をセットします。",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/mode"
+          },
+          {
+            "$ref": "#/components/parameters/target"
+          },
+          {
+            "$ref": "#/components/parameters/address"
+          },
+          {
+            "$ref": "#/components/parameters/kind"
+          },
+          {
+            "$ref": "#/components/parameters/change"
+          },
+          {
+            "$ref": "#/components/parameters/close"
+          },
+          {
+            "$ref": "#/components/parameters/from"
+          },
+          {
+            "$ref": "#/components/parameters/to"
+          },
+          {
+            "$ref": "#/components/parameters/divide"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "title": "ResponseWrapper",
+                  "type": "object",
+                  "properties": {
+                    "corporations": {
+                      "title": "Response",
+                      "description": "基本３情報及び付随する情報を含む応答結果です。",
+                      "type": "object",
+                      "properties": {
+                        "lastUpdateDate": {
+                          "type": "string",
+                          "description": "最終更新年月日",
+                          "example": "2017-05-10"
+                        },
+                        "count": {
+                          "type": "integer",
+                          "description": "総件数",
+                          "example": 100
+                        },
+                        "divideNumber": {
+                          "type": "integer",
+                          "description": "分割されたファイルの通し番号（分子）を表すデータ項目。",
+                          "example": 1
+                        },
+                        "divideSize": {
+                          "type": "integer",
+                          "description": "分割されたファイルの総数（分母）にあたるデータ項目。",
+                          "example": 1
+                        },
+                        "corporation": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Corporation"
+                          }
+                        }
+                      },
+                      "required": [
+                        "lastUpdateDate",
+                        "count",
+                        "divideNumber",
+                        "divideSize",
+                        "corporation"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "corporations"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/Error400"
+          },
+          "403": {
+            "$ref": "#/components/responses/Error403"
+          },
+          "404": {
+            "$ref": "#/components/responses/Error404"
+          },
+          "500": {
+            "$ref": "#/components/responses/Error500"
+          }
+        },
+        "tags": [
+          "corporations"
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "id": {
+        "name": "id",
+        "description": "国税庁に申請して取得した認証用のアプリケーションIDです。",
+        "type": "apiKey",
+        "in": "query"
+      }
+    },
+    "schemas": {
+      "ProcessCodeType": {
+        "type": "string",
+        "title": "ProcessCodeType",
+        "description": "法人番号の指定、商号又は所在地に変更等が発生した事由をコード値で表す項目。",
+        "enum": [
+          "01",
+          "11",
+          "12",
+          "13",
+          "21",
+          "22",
+          "71",
+          "72",
+          "81",
+          "99"
+        ],
+        "example": "01",
+        "x-examples": {
+          "example-1": "01"
+        }
+      },
+      "CorrectCodeType": {
+        "title": "CorrectCodeType",
+        "type": "integer",
+        "description": "提供していたデータについて、次の場合に値を設定するデータ項目。",
+        "enum": [
+          0,
+          1
+        ],
+        "example": 0,
+        "x-examples": {
+          "example-1": 0
+        }
+      },
+      "CorporateType": {
+        "title": "CorporateType",
+        "description": "法人種別を判別するためのデータ項目。",
+        "type": "integer",
+        "enum": [
+          101,
+          201,
+          301,
+          302,
+          303,
+          304,
+          305,
+          399,
+          401,
+          499
+        ],
+        "example": 101,
+        "x-examples": {
+          "example-1": 101
+        }
+      },
+      "PrefectureType": {
+        "title": "PrefectureType",
+        "description": "法人番号保有者の本店又は主たる事務所の所在地の都道府県名。",
+        "type": "string",
+        "pattern": "(北海道|青森県|岩手県|宮城県|秋田県|山形県|福島県|茨城県|栃木県|群馬県|埼玉県|千葉県|東京都|神奈川県|新潟県|富山県|石川県|福井県|山梨県|長野県|岐阜県|静岡県|愛知県|三重県|滋賀県|京都府|大阪府|兵庫県|奈良県|和歌山県|鳥取県|島根県|岡山県|広島県|山口県|徳島県|香川県|愛媛県|高知県|福岡県|佐賀県|長崎県|熊本県|大分県|宮崎県|鹿児島県|沖縄県)",
+        "example": "北海道",
+        "x-examples": {
+          "example-1": "北海道"
+        }
+      },
+      "Corporation": {
+        "title": "Corporation",
+        "description": "法人種別を判別するためのデータ項目。",
+        "type": "object",
+        "properties": {
+          "sequenceNumber": {
+            "type": "integer",
+            "description": "一連番号",
+            "example": 11111111
+          },
+          "corporateNumber": {
+            "type": "integer",
+            "example": 9999999999999,
+            "description": "法人番号の指定を受けた者（以下「法人番号保有者」という。）の\n法人番号を示すデータ項目。"
+          },
+          "process": {
+            "$ref": "#/components/schemas/ProcessCodeType"
+          },
+          "correct": {
+            "$ref": "#/components/schemas/CorrectCodeType"
+          },
+          "updateDate": {
+            "type": "string",
+            "description": "法務省等からデータを受け取り、当庁でデータを更新した日付を表す。",
+            "format": "date",
+            "example": "2018-04-02"
+          },
+          "changeDate": {
+            "type": "string",
+            "format": "date",
+            "description": "事由が発生した日付を表すデータ項目。",
+            "example": "2015-10-05"
+          },
+          "name": {
+            "type": "string",
+            "description": "法人番号保有者の商号又は名称を示すデータ項目。",
+            "example": "株式会社foo"
+          },
+          "nameImageId": {
+            "type": "integer",
+            "description": "商号又は名称イメージIDは、\nイメージファイルを閲覧するために指定する値（情報）。",
+            "example": 99999999
+          },
+          "kind": {
+            "$ref": "#/components/schemas/CorporateType"
+          },
+          "prefectureName": {
+            "$ref": "#/components/schemas/PrefectureType"
+          },
+          "cityName": {
+            "type": "string",
+            "description": "法人番号保有者の本店又は主たる事務所の所在地の市区町村名。",
+            "example": "旭川市"
+          },
+          "streetNumber": {
+            "type": "string",
+            "description": "法人番号保有者の本店又は主たる事務所の所在地の丁目番地等。",
+            "example": "大字下白銀町７"
+          },
+          "addressImageId": {
+            "type": "integer",
+            "description": "国内所在地イメージIDは、\nイメージファイルを閲覧するために指定する値（情報）。",
+            "example": 87308
+          },
+          "prefectureCode": {
+            "type": "integer",
+            "description": "都道府県コード。データを取り込み、名寄せ作業や不要なデータを識別する際、\n当該コードを活用することにより、効率的な作業を行うことができる。",
+            "example": 1,
+            "minimum": 1,
+            "maximum": 47
+          },
+          "cityCode": {
+            "type": "integer",
+            "description": "市区町村コード",
+            "example": 111
+          },
+          "postCode": {
+            "type": "integer",
+            "description": "国内所在地の文字情報を基に設定した郵便番号。",
+            "example": 7777777
+          },
+          "addressOutside": {
+            "type": "string",
+            "description": "本店又は主たる事務所の所在地が国外にある法人番号保有者の\n国外における本店又は主たる事務所の所在地を示すデータ項目。",
+            "example": "ニューヨーク州ブロンクス区西２６３丁目１番地"
+          },
+          "addressOutsideImageId": {
+            "type": "integer",
+            "description": "国外所在地イメージIDは、\nイメージファイルを閲覧するために指定する値（情報）。",
+            "example": 1
+          },
+          "closeDate": {
+            "type": "string",
+            "description": "登記記録の閉鎖等の事由が生じた年月日を表す。",
+            "format": "date",
+            "example": "2017-03-31"
+          },
+          "closeCause": {
+            "type": "string",
+            "description": "閉鎖の事由は、登記記録の閉鎖等が生じた事由を表すデータ項目。",
+            "enum": [
+              "01",
+              "11",
+              "21",
+              "31"
+            ],
+            "example": "01"
+          },
+          "successorCorporateNumber": {
+            "type": "integer",
+            "description": "合併等による事業承継があったことにより\n登記記録が閉鎖された場合の存続する法人の法人番号。",
+            "example": 1
+          },
+          "changeCause": {
+            "type": "string",
+            "description": "合併等による事業承継があった場合の事業承継内容を示すデータ項目。",
+            "example": "不本意ながら吸収合併されたため。"
+          },
+          "assignmentDate": {
+            "type": "string",
+            "description": "法人番号指定年月日は、法人番号が指定された年月日を表す。",
+            "format": "date",
+            "example": "2010-01-01"
+          },
+          "latest": {
+            "type": "integer",
+            "description": "応答結果のデータが、最新の情報か過去の情報かを表す。",
+            "enum": [
+              0,
+              1
+            ],
+            "example": 0
+          },
+          "enName": {
+            "type": "string",
+            "description": "法人番号保有者が登録した商号又は名称（英語表記）。",
+            "example": "Netflix"
+          },
+          "enPrefectureName": {
+            "type": "string",
+            "description": "法人番号保有者が登録した本店又は主たる事務所の\n所在地の都道府県名（英語表記）。",
+            "example": "Hokkaido"
+          },
+          "enCityName": {
+            "type": "string",
+            "description": "法人番号保有者が登録した本店又は主たる事務所の\n所在地の丁目番地等（英語表記）。"
+          },
+          "enAddressOutside": {
+            "type": "string",
+            "description": "本店又は主たる事務所の所在地が国外にある法人番号保有者が\n登録した国外における本店又は主たる事務所の所在地（英語表記）。",
+            "example": "47 W 13th St, New York, NY 10011, USA"
+          },
+          "furigana": {
+            "type": "string",
+            "description": "法人番号保有者の商号又は名称に対するフリガナ情報を示すデータ項目。",
+            "example": "ワッツマンリサーチ"
+          },
+          "hihyoji": {
+            "type": "integer",
+            "description": "設立登記法人のうち、登記上の所在地が、住居表示の実施や区画整理等で\n既に廃止されており、現在では存在しない住所表記となっていることが\n確認できた法人について、検索対象から除外していることを示すデータ項目。",
+            "enum": [
+              0,
+              1
+            ],
+            "example": 0
+          }
+        },
+        "x-examples": {
+          "example-1": {
+            "sequenceNumber": 11111111,
+            "corporateNumber": 9999999999999,
+            "process": "01",
+            "correct": 0,
+            "updateDate": "2018-04-02",
+            "changeDate": "2015-10-05",
+            "name": "株式会社foo",
+            "nameImageId": 99999999,
+            "kind": 101,
+            "prefectureName": "北海道",
+            "cityName": "旭川市",
+            "streetNumber": "大字下白銀町７",
+            "addressImageId": 87308,
+            "prefectureCode": 1,
+            "cityCode": 111,
+            "postCode": 7777777,
+            "addressOutside": "ニューヨーク州ブロンクス区西２６３丁目１番地",
+            "addressOutsideImageId": 1,
+            "closeDate": "2017-03-31",
+            "closeCause": "01",
+            "successorCorporateNumber": 1,
+            "changeCause": "不本意ながら吸収合併されたため。",
+            "assignmentDate": "2010-01-01",
+            "latest": 0,
+            "enName": "Netflix",
+            "enPrefectureName": "Hokkaido",
+            "enCityName": "string",
+            "enAddressOutside": "47 W 13th St, New York, NY 10011, USA",
+            "furigana": "ワッツマンリサーチ",
+            "hihyoji": 0
+          }
+        }
+      }
+    },
+    "parameters": {
+      "type": {
+        "name": "type",
+        "description": "リクエストに対して応答するデータのファイル形式と文字コードを指定します。",
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "12",
+            "01",
+            "02"
+          ],
+          "default": "12",
+          "example": "12"
+        },
+        "required": true
+      },
+      "mode": {
+        "name": "mode",
+        "description": "検索方式を指定できます。\n指定しない場合は、｢１｣（前方一致検索）で処理します。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "enum": [
+            1,
+            2
+          ],
+          "default": 1
+        }
+      },
+      "target": {
+        "name": "target",
+        "description": "検索対象を指定できます。\n指定しない場合は、｢１｣（JIS 第一・第二水準）で処理します。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ],
+          "default": 1
+        }
+      },
+      "address": {
+        "name": "address",
+        "description": "国内所在地の都道府県コード又は\n都道府県コードと市区町村コードを組み合わせたコードのいずれかを指定できます。\n市区町村コードのみではエラー(エラーコード 051)となります。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "pattern": "[0-9]{2,5}"
+        }
+      },
+      "kind": {
+        "name": "kind",
+        "description": "法人種別を指定できます。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "enum": [
+            "01",
+            "02",
+            "03",
+            "04"
+          ]
+        }
+      },
+      "change": {
+        "name": "change",
+        "description": "法人名や所在地の変更があった法人等に\nついて過去の情報を含めて検索するかどうかを指定できます。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ],
+          "default": 0
+        }
+      },
+      "close": {
+        "name": "close",
+        "description": "登記記録の閉鎖等があった法人等の情報を取得するかどうかを指定できます。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "enum": [
+            0,
+            1
+          ],
+          "default": 1
+        }
+      },
+      "from": {
+        "name": "from",
+        "description": "取得の対象とする法人番号指定年月日の開始日を指定できます。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+        }
+      },
+      "to": {
+        "name": "to",
+        "description": "取得の対象とする法人番号指定年月日の終了日を指定できます。 ",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "string",
+          "pattern": "[0-9]{4}-[0-9]{2}-[0-9]{2}"
+        }
+      },
+      "divide": {
+        "name": "divide",
+        "description": "分割番号を指定できます。\n指定しない場合は、「１」で処理します。",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99999
+        }
+      }
+    },
+    "responses": {
+      "Error400": {
+        "description": "error codes when http response 400 is returned",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "010",
+                "011",
+                "012",
+                "013",
+                "020",
+                "021",
+                "022",
+                "030",
+                "031",
+                "040",
+                "041",
+                "042",
+                "043",
+                "050",
+                "051",
+                "052",
+                "060",
+                "061",
+                "062",
+                "063",
+                "070",
+                "071",
+                "072",
+                "073",
+                "080",
+                "081",
+                "082",
+                "090",
+                "100",
+                "101",
+                "102",
+                "103",
+                "110",
+                "111",
+                "112",
+                "120",
+                "121",
+                "122",
+                "130",
+                "131",
+                "132",
+                "140",
+                "141",
+                "142",
+                "150",
+                "151",
+                "152",
+                "160",
+                "161",
+                "170",
+                "180"
+              ]
+            }
+          }
+        }
+      },
+      "Error403": {
+        "description": "同一アプリケーションＩＤを用い、一定期間内に多数のアクセスをした結果アク\nセス制限された後に、当該ＩＤを利用しアクセスした場合に設定されます。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Error404": {
+        "description": "指定されたアプリケーションIDが登録されていない又は無効の場合等に設定\nされます。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Error500": {
+        "description": "法人番号公表機能に障害等が発生した場合に設定されます。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

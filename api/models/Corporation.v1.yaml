@@ -1,0 +1,187 @@
+title: Corporation
+description: 法人種別を判別するためのデータ項目。
+type: object
+properties:
+  sequenceNumber:
+    type: integer
+    description: 一連番号
+    example: 11111111
+  corporateNumber:
+    type: integer
+    example: 9999999999999
+    description: |-
+      法人番号の指定を受けた者（以下「法人番号保有者」という。）の
+      法人番号を示すデータ項目。
+  process:
+    $ref: ../types/ProcessCodeType.v1.yaml
+  correct:
+    $ref: ../types/CorrectCodeType.v1.yaml
+  updateDate:
+    type: string
+    description: 法務省等からデータを受け取り、当庁でデータを更新した日付を表す。
+    format: date
+    example: '2018-04-02'
+  changeDate:
+    type: string
+    format: date
+    description: 事由が発生した日付を表すデータ項目。
+    example: '2015-10-05'
+  name:
+    type: string
+    description: 法人番号保有者の商号又は名称を示すデータ項目。
+    example: 株式会社foo
+  nameImageId:
+    type: integer
+    description: |-
+      商号又は名称イメージIDは、
+      イメージファイルを閲覧するために指定する値（情報）。
+    example: 99999999
+  kind:
+    $ref: ../types/CorporateType.v1.yaml
+  prefectureName:
+    $ref: ../types/PrefectureType.v1.yaml
+  cityName:
+    type: string
+    description: 法人番号保有者の本店又は主たる事務所の所在地の市区町村名。
+    example: 旭川市
+  streetNumber:
+    type: string
+    description: 法人番号保有者の本店又は主たる事務所の所在地の丁目番地等。
+    example: 大字下白銀町７
+  addressImageId:
+    type: integer
+    description: |-
+      国内所在地イメージIDは、
+      イメージファイルを閲覧するために指定する値（情報）。
+    example: 87308
+  prefectureCode:
+    type: integer
+    description: |-
+      都道府県コード。データを取り込み、名寄せ作業や不要なデータを識別する際、
+      当該コードを活用することにより、効率的な作業を行うことができる。
+    example: 1
+    minimum: 1
+    maximum: 47
+  cityCode:
+    type: integer
+    description: 市区町村コード
+    example: 111
+  postCode:
+    type: integer
+    description: 国内所在地の文字情報を基に設定した郵便番号。
+    example: 7777777
+  addressOutside:
+    type: string
+    description: |-
+      本店又は主たる事務所の所在地が国外にある法人番号保有者の
+      国外における本店又は主たる事務所の所在地を示すデータ項目。
+    example: ニューヨーク州ブロンクス区西２６３丁目１番地
+  addressOutsideImageId:
+    type: integer
+    description: |-
+      国外所在地イメージIDは、
+      イメージファイルを閲覧するために指定する値（情報）。
+    example: 1
+  closeDate:
+    type: string
+    description: 登記記録の閉鎖等の事由が生じた年月日を表す。
+    format: date
+    example: '2017-03-31'
+  closeCause:
+    type: string
+    description: 閉鎖の事由は、登記記録の閉鎖等が生じた事由を表すデータ項目。
+    enum:
+      - '01'
+      - '11'
+      - '21'
+      - '31'
+    example: '01'
+  successorCorporateNumber:
+    type: integer
+    description: |-
+      合併等による事業承継があったことにより
+      登記記録が閉鎖された場合の存続する法人の法人番号。
+    example: 1
+  changeCause:
+    type: string
+    description: 合併等による事業承継があった場合の事業承継内容を示すデータ項目。
+    example: 不本意ながら吸収合併されたため。
+  assignmentDate:
+    type: string
+    description: 法人番号指定年月日は、法人番号が指定された年月日を表す。
+    format: date
+    example: '2010-01-01'
+  latest:
+    type: integer
+    description: 応答結果のデータが、最新の情報か過去の情報かを表す。
+    enum:
+      - 0
+      - 1
+    example: 0
+  enName:
+    type: string
+    description: 法人番号保有者が登録した商号又は名称（英語表記）。
+    example: Netflix
+  enPrefectureName:
+    type: string
+    description: |-
+      法人番号保有者が登録した本店又は主たる事務所の
+      所在地の都道府県名（英語表記）。
+    example: Hokkaido
+  enCityName:
+    type: string
+    description: |-
+      法人番号保有者が登録した本店又は主たる事務所の
+      所在地の丁目番地等（英語表記）。
+  enAddressOutside:
+    type: string
+    description: |-
+      本店又は主たる事務所の所在地が国外にある法人番号保有者が
+      登録した国外における本店又は主たる事務所の所在地（英語表記）。
+    example: '47 W 13th St, New York, NY 10011, USA'
+  furigana:
+    type: string
+    description: 法人番号保有者の商号又は名称に対するフリガナ情報を示すデータ項目。
+    example: ワッツマンリサーチ
+  hihyoji:
+    type: integer
+    description: |-
+      設立登記法人のうち、登記上の所在地が、住居表示の実施や区画整理等で
+      既に廃止されており、現在では存在しない住所表記となっていることが
+      確認できた法人について、検索対象から除外していることを示すデータ項目。
+    enum:
+      - 0
+      - 1
+    example: 0
+x-examples:
+  example-1:
+    sequenceNumber: 11111111
+    corporateNumber: 9999999999999
+    process: '01'
+    correct: 0
+    updateDate: '2018-04-02'
+    changeDate: '2015-10-05'
+    name: 株式会社foo
+    nameImageId: 99999999
+    kind: 101
+    prefectureName: 北海道
+    cityName: 旭川市
+    streetNumber: 大字下白銀町７
+    addressImageId: 87308
+    prefectureCode: 1
+    cityCode: 111
+    postCode: 7777777
+    addressOutside: ニューヨーク州ブロンクス区西２６３丁目１番地
+    addressOutsideImageId: 1
+    closeDate: '2017-03-31'
+    closeCause: '01'
+    successorCorporateNumber: 1
+    changeCause: 不本意ながら吸収合併されたため。
+    assignmentDate: '2010-01-01'
+    latest: 0
+    enName: Netflix
+    enPrefectureName: Hokkaido
+    enCityName: string
+    enAddressOutside: '47 W 13th St, New York, NY 10011, USA'
+    furigana: ワッツマンリサーチ
+    hihyoji: 0

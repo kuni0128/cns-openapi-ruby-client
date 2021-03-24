@@ -1,0 +1,17 @@
+type: string
+title: ProcessCodeType
+description: 法人番号の指定、商号又は所在地に変更等が発生した事由をコード値で表す項目。
+enum:
+  - '01'
+  - '11'
+  - '12'
+  - '13'
+  - '21'
+  - '22'
+  - '71'
+  - '72'
+  - '81'
+  - '99'
+example: '01'
+x-examples:
+  example-1: '01'
