@@ -168,14 +168,14 @@ describe CnsOpenapiRubyClient::ApiClient do
     let(:api_client) { CnsOpenapiRubyClient::ApiClient.new }
 
     it 'works' do
-      expect(api_client.select_header_content_type(nil)).to eq('application/json')
-      expect(api_client.select_header_content_type([])).to eq('application/json')
+      expect(api_client.select_header_content_type(nil)).to eq('application/xml')
+      expect(api_client.select_header_content_type([])).to eq('application/xml')
 
       expect(api_client.select_header_content_type(['application/json'])).to eq('application/json')
-      expect(api_client.select_header_content_type(['application/xml', 'application/json; charset=UTF8'])).to eq('application/json; charset=UTF8')
+      expect(api_client.select_header_content_type(['application/xml', 'application/json; charset=UTF8'])).to eq('application/xml')
       expect(api_client.select_header_content_type(['APPLICATION/JSON', 'text/html'])).to eq('APPLICATION/JSON')
       expect(api_client.select_header_content_type(['application/xml'])).to eq('application/xml')
-      expect(api_client.select_header_content_type(['text/plain', 'application/xml'])).to eq('text/plain')
+      expect(api_client.select_header_content_type(['text/plain', 'application/xml'])).to eq('application/xml')
     end
   end
 
