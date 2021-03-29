@@ -15,16 +15,16 @@ require 'time'
 
 module CnsOpenapiRubyClient
   class CorporateType
-    N101 = "101".freeze
-    N201 = "201".freeze
-    N301 = "301".freeze
-    N302 = "302".freeze
-    N303 = "303".freeze
-    N304 = "304".freeze
-    N305 = "305".freeze
-    N399 = "399".freeze
-    N401 = "401".freeze
-    N499 = "499".freeze
+    NationalOrg = "101".freeze
+    LocalOrg = "201".freeze
+    Corporation = "301".freeze
+    YugenKaisha = "302".freeze
+    GeneralPartnership = "303".freeze
+    LimitedPartnership = "304".freeze
+    LimitedLiability = "305".freeze
+    EtcCorporation = "399".freeze
+    ForeignCorporation = "401".freeze
+    Other = "499".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

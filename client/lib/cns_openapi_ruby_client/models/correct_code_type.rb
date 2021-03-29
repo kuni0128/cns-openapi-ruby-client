@@ -15,8 +15,8 @@ require 'time'
 
 module CnsOpenapiRubyClient
   class CorrectCodeType
-    N0 = "0".freeze
-    N1 = "1".freeze
+    OtherThanCorrection = "0".freeze
+    Correction = "1".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string

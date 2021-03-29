@@ -12,6 +12,16 @@ enum:
   - '72'
   - '81'
   - '99'
-example: '01'
-x-examples:
-  example-1: '01'
+x-enum-varnames:
+  - New
+  - ChangedName
+  - ChangedDomesticAddress
+  - ChangedForeignAddress
+  - Closed
+  - ReActived
+  - AbsorbedAndMerged
+  - InvalidAbsorbedAndMerged
+  - DeletedTradeName
+  - Deleted
+
+
