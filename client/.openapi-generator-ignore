@@ -22,7 +22,8 @@
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
 
-cns_openapi_ruby_client.gemspec
 lib/cns_openapi_ruby_client/api_client.rb
+lib/cns_openapi_ruby_client/models/response.rb
+cns_openapi_ruby_client.gemspec
 spec/api_client_spec.rb
 README.md
