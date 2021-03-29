@@ -169,44 +169,60 @@
           "81",
           "99"
         ],
-        "example": "01",
-        "x-examples": {
-          "example-1": "01"
-        }
+        "x-enum-varnames": [
+          "New",
+          "ChangedName",
+          "ChangedDomesticAddress",
+          "ChangedForeignAddress",
+          "Closed",
+          "ReActived",
+          "AbsorbedAndMerged",
+          "InvalidAbsorbedAndMerged",
+          "DeletedTradeName",
+          "Deleted"
+        ]
       },
       "CorrectCodeType": {
         "title": "CorrectCodeType",
         "type": "string",
         "description": "提供していたデータについて、次の場合に値を設定するデータ項目。",
         "enum": [
-          0,
-          1
+          "0",
+          "1"
         ],
-        "example": 0,
-        "x-examples": {
-          "example-1": 0
-        }
+        "x-enum-varnames": [
+          "OtherThanCorrection",
+          "Correction"
+        ]
       },
       "CorporateType": {
         "title": "CorporateType",
         "description": "法人種別を判別するためのデータ項目。",
         "type": "string",
         "enum": [
-          101,
-          201,
-          301,
-          302,
-          303,
-          304,
-          305,
-          399,
-          401,
-          499
+          "101",
+          "201",
+          "301",
+          "302",
+          "303",
+          "304",
+          "305",
+          "399",
+          "401",
+          "499"
         ],
-        "example": 101,
-        "x-examples": {
-          "example-1": 101
-        }
+        "x-enum-varnames": [
+          "NationalOrg",
+          "LocalOrg",
+          "Corporation",
+          "YugenKaisha",
+          "GeneralPartnership",
+          "LimitedPartnership",
+          "LimitedLiability",
+          "EtcCorporation",
+          "ForeignCorporation",
+          "Other"
+        ]
       },
       "PrefectureType": {
         "title": "PrefectureType",

@@ -15,16 +15,16 @@ require 'time'
 
 module CnsOpenapiRubyClient
   class ProcessCodeType
-    N01 = "01".freeze
-    N11 = "11".freeze
-    N12 = "12".freeze
-    N13 = "13".freeze
-    N21 = "21".freeze
-    N22 = "22".freeze
-    N71 = "71".freeze
-    N72 = "72".freeze
-    N81 = "81".freeze
-    N99 = "99".freeze
+    New = "01".freeze
+    ChangedName = "11".freeze
+    ChangedDomesticAddress = "12".freeze
+    ChangedForeignAddress = "13".freeze
+    Closed = "21".freeze
+    ReActived = "22".freeze
+    AbsorbedAndMerged = "71".freeze
+    InvalidAbsorbedAndMerged = "72".freeze
+    DeletedTradeName = "81".freeze
+    Deleted = "99".freeze
 
     # Builds the enum from string
     # @param [String] The enum value in the form of the string
