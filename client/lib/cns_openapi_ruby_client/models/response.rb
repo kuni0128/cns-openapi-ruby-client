@@ -183,6 +183,8 @@ module CnsOpenapiRubyClient
           # is documented as an array but the input is not
           if attributes[self.class.attribute_map[key]].is_a?(Array)
             self.send("#{key}=", attributes[self.class.attribute_map[key]].map { |v| _deserialize($1, v) })
+          elsif attributes[self.class.attribute_map[key]].is_a?(Hash)
+            self.send("#{key}=", [_deserialize($1, attributes[self.class.attribute_map[key]])])
           end
         elsif !attributes[self.class.attribute_map[key]].nil?
           self.send("#{key}=", _deserialize(type, attributes[self.class.attribute_map[key]]))

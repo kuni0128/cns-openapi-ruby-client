@@ -3,7 +3,6 @@
 .rubocop.yml
 .travis.yml
 Gemfile
-README.md
 Rakefile
 docs/CorporateType.md
 docs/Corporation.md
@@ -22,9 +21,7 @@ lib/cns_openapi_ruby_client/models/corporate_type.rb
 lib/cns_openapi_ruby_client/models/corporation.rb
 lib/cns_openapi_ruby_client/models/correct_code_type.rb
 lib/cns_openapi_ruby_client/models/process_code_type.rb
-lib/cns_openapi_ruby_client/models/response.rb
 lib/cns_openapi_ruby_client/models/response_wrapper.rb
 lib/cns_openapi_ruby_client/version.rb
-spec/api_client_spec.rb
 spec/configuration_spec.rb
 spec/spec_helper.rb
