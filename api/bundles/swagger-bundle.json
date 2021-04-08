@@ -8,7 +8,7 @@
       "name": "Contact Information",
       "url": "https://www.houjin-bangou.nta.go.jp/webapi/toiawase/"
     },
-    "version": "1.0.3"
+    "version": "1.0.4"
   },
   "servers": [
     {
@@ -28,13 +28,7 @@
         "description": "法人名による法人情報の取得",
         "parameters": [
           {
-            "name": "name",
-            "in": "query",
-            "description": "取得の対象とする法人名を\nURL エンコード（UTF-8）した値をセットします。",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "$ref": "#/components/parameters/name"
           },
           {
             "$ref": "#/components/parameters/type"
@@ -438,6 +432,16 @@
       }
     },
     "parameters": {
+      "name": {
+        "name": "name",
+        "in": "query",
+        "description": "取得の対象とする法人名を\nURL エンコード（UTF-8）した値をセットします。",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
       "type": {
         "name": "type",
         "description": "リクエストに対して応答するデータのファイル形式と文字コードを指定します。",
