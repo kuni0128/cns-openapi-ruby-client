@@ -232,6 +232,7 @@
         "title": "Corporation",
         "description": "法人種別を判別するためのデータ項目。",
         "type": "object",
+        "x-examples": {},
         "properties": {
           "sequenceNumber": {
             "type": "integer",
@@ -300,14 +301,14 @@
             "maximum": 47
           },
           "cityCode": {
-            "type": "integer",
+            "type": "string",
             "description": "市区町村コード",
             "example": 111
           },
           "postCode": {
-            "type": "integer",
             "description": "国内所在地の文字情報を基に設定した郵便番号。",
-            "example": 7777777
+            "example": 7777777,
+            "type": "string"
           },
           "addressOutside": {
             "type": "string",
@@ -393,40 +394,6 @@
               1
             ],
             "example": 0
-          }
-        },
-        "x-examples": {
-          "example-1": {
-            "sequenceNumber": 11111111,
-            "corporateNumber": 9999999999999,
-            "process": "01",
-            "correct": 0,
-            "updateDate": "2018-04-02",
-            "changeDate": "2015-10-05",
-            "name": "株式会社foo",
-            "nameImageId": 99999999,
-            "kind": 101,
-            "prefectureName": "北海道",
-            "cityName": "旭川市",
-            "streetNumber": "大字下白銀町７",
-            "addressImageId": 87308,
-            "prefectureCode": 1,
-            "cityCode": 111,
-            "postCode": 7777777,
-            "addressOutside": "ニューヨーク州ブロンクス区西２６３丁目１番地",
-            "addressOutsideImageId": 1,
-            "closeDate": "2017-03-31",
-            "closeCause": "01",
-            "successorCorporateNumber": 1,
-            "changeCause": "不本意ながら吸収合併されたため。",
-            "assignmentDate": "2010-01-01",
-            "latest": 0,
-            "enName": "Netflix",
-            "enPrefectureName": "Hokkaido",
-            "enCityName": "string",
-            "enAddressOutside": "47 W 13th St, New York, NY 10011, USA",
-            "furigana": "ワッツマンリサーチ",
-            "hihyoji": 0
           }
         }
       }

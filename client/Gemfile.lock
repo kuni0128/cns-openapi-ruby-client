@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cns_openapi_ruby_client (1.0.0)
+    cns_openapi_ruby_client (1.0.4)
       activesupport (>= 4.2)
       typhoeus (~> 1.0, >= 1.0.1)
 

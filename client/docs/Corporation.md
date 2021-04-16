@@ -18,8 +18,8 @@
 | **street_number** | **String** | 法人番号保有者の本店又は主たる事務所の所在地の丁目番地等。 | [optional] |
 | **address_image_id** | **Integer** | 国内所在地イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。 | [optional] |
 | **prefecture_code** | **Integer** | 都道府県コード。データを取り込み、名寄せ作業や不要なデータを識別する際、 当該コードを活用することにより、効率的な作業を行うことができる。 | [optional] |
-| **city_code** | **Integer** | 市区町村コード | [optional] |
-| **post_code** | **Integer** | 国内所在地の文字情報を基に設定した郵便番号。 | [optional] |
+| **city_code** | **String** | 市区町村コード | [optional] |
+| **post_code** | **String** | 国内所在地の文字情報を基に設定した郵便番号。 | [optional] |
 | **address_outside** | **String** | 本店又は主たる事務所の所在地が国外にある法人番号保有者の 国外における本店又は主たる事務所の所在地を示すデータ項目。 | [optional] |
 | **address_outside_image_id** | **Integer** | 国外所在地イメージIDは、 イメージファイルを閲覧するために指定する値（情報）。 | [optional] |
 | **close_date** | **Date** | 登記記録の閉鎖等の事由が生じた年月日を表す。 | [optional] |
